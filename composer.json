@@ -1,0 +1,24 @@
+{
+  "name": "a939638621/wechat-shop",
+  "description": "微信小店",
+  "minimum-stability": "dev",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "a939638621",
+      "email": "939638621@qq.com"
+    }
+  ],
+  "require": {
+       "php":">=5.3",
+       "ext-mcrypt": "*",
+    "overtrue/wechat": "2.1.14"
+   },
+  "autoload": {
+       "psr-4": {
+             "Shop": "src/"
+         }
+   }
+
+
+}
