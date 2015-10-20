@@ -19,47 +19,50 @@ interface Group
     /**
      * 添加分组
      *
-     * @param array $data
-     * @return mixed
+     * @param $groupName
+     * @param $productList
+     * @return int
      */
-    public function add(array $data);
+    public function add($groupName, array $productList);
 
     /**
      * 删除分组
      *
-     * @param array $data
-     * @return mixed
+     * @param $groupId
+     * @return bool
      */
-    public function delete(array $data);
+    public function delete($groupId);
 
     /**
      * 修改分组属性
      *
-     * @param array $data
-     * @return mixed
+     * @param $groupId
+     * @param $groupName
+     * @return bool
      */
-    public function updateAttribute(array $data);
+    public function updateAttribute($groupId,$groupName);
 
     /**
      * 修改分组商品
      *
-     * @param array $data
-     * @return mixed
+     * @param $groupId
+     * @param $product
+     * @return bool
      */
-    public function updateProduct(array $data);
+    public function updateProduct($groupId,$product);
 
     /**
      * 获得全部商品
      *
-     * @return mixed
+     * @return array
      */
     public function lists();
 
     /**
      * 根据分组ID获取分组信息
      *
-     * @param array $data
-     * @return mixed
+     * @param $groupId
+     * @return array
      */
-    public function getById(array $data);
+    public function getById($groupId);
 }
