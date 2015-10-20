@@ -17,36 +17,41 @@ namespace Shop\Foundation;
 interface Postage
 {
     /**
-     * 添加邮费模板
+     * 添加运费模板
      *
-     * @param array $data
-     * @return mixed
+     * @param $name
+     * @param $assumer
+     * @param $valuation
+     * @param $topFee
+     * @return int
      */
-    public function add(array $data);
+    public function add($name, $topFee, $assumer = 0, $valuation = 0);
 
     /**
      * 删除邮费模板
      *
-     * @param array $data
-     * @return mixed
+     * @param $templateId
+     * @return bool
      */
-    public function delete(array $data);
+    public function delete($templateId);
 
     /**
      * 修改邮费模板
      *
-     * @param array $data
-     * @return mixed
+     * @param $templateId
+     * @param $name
+     * @param null $topFee
+     * @param int $assumer
+     * @param int $valuation
+     * @return bool
      */
-    public function update(array $data);
+    public function update($templateId, $name, $topFee = null, $assumer = 0, $valuation = 0);
 
     /**
-     * 获取指定ID的邮费模板
-     *
-     * @param array $data
-     * @return mixed
+     * @param $templateId
+     * @return array
      */
-    public function getById(array $data);
+    public function getById($templateId);
 
     /**
      * 获得全部的邮费模板

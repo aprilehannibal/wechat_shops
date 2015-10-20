@@ -14,6 +14,11 @@ use Overtrue\Wechat\Http;
 use Shop\Foundation\Stock as StockInterface;
 use Overtrue\Wechat\Exception;
 
+/**
+ * Class Stock
+ * @package Shop
+ * @todo 后续优化 链式，魔术调用
+ */
 class Stock implements StockInterface
 {
 
