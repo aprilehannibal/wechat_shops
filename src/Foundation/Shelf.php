@@ -19,26 +19,31 @@ interface Shelf
     /**
      * 添加货架
      *
-     * @param array $data
+     * @param $shelfData
+     * @param $shelfBanner
+     * @param $shelfName
      * @return mixed
      */
-    public function add(array $data);
+    public function add($shelfData, $shelfBanner, $shelfName);
 
     /**
      * 删除货架
      *
-     * @param array $data
-     * @return mixed
+     * @param int $shelfId
+     * @return bool
      */
-    public function delete(array $data);
+    public function delete($shelfId);
 
     /**
      * 修改货架
      *
-     * @param array $data
-     * @return mixed
+     * @param $shelfData
+     * @param $shelfId
+     * @param $shelfBanner
+     * @param $shelfName
+     * @return bool
      */
-    public function update(array $data);
+    public function update($shelfData,$shelfId,$shelfBanner,$shelfName);
 
     /**
      * 获取所有货架
@@ -50,8 +55,8 @@ interface Shelf
     /**
      * 根据货架ID获取货架信息
      *
-     * @param array $data
-     * @return mixed
+     * @param $shelfId
+     * @return array
      */
-    public function getById(array $data);
+    public function getById($shelfId);
 }
