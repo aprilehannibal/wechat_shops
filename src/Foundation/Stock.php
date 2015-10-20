@@ -19,16 +19,20 @@ interface Stock
     /**
      * 增加库存
      *
-     * @param array $data
-     * @return mixed
+     * @param $productId
+     * @param array $skuInfo
+     * @param $quantity
+     * @return bool
      */
-    public function add(array $data);
+    public function add($productId,array $skuInfo,$quantity);
 
     /**
      * 减少库存
      *
-     * @param array $data
+     * @param $productId
+     * @param array $skuInfo
+     * @param $quantity
      * @return mixed
      */
-    public function reduce(array $data);
+    public function reduce($productId, array $skuInfo, $quantity);
 }
