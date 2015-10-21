@@ -66,6 +66,7 @@ class Postage implements PostageInterface
      * 设置TopFee
      *
      * @param string $type
+     * @return $this
      * @throws Exception
      */
     public function setTopFee($type = self::KUAI_DI)
@@ -89,9 +90,7 @@ class Postage implements PostageInterface
             );
         }
 
-        dump($this);
-
-        exit;
+        return $this;
     }
 
     /**
