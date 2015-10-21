@@ -40,7 +40,7 @@ interface Group
      * @param $groupName
      * @return bool
      */
-    public function updateAttribute($groupId,$groupName);
+    public function updateAttribute($groupId, $groupName);
 
     /**
      * 修改分组商品
@@ -49,7 +49,7 @@ interface Group
      * @param $product
      * @return bool
      */
-    public function updateProduct($groupId,$product);
+    public function updateProduct($groupId, array $product);
 
     /**
      * 获得全部商品

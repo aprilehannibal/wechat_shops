@@ -26,6 +26,10 @@ class Group implements GroupInterface
 
     const API_ADD = 'https://api.weixin.qq.com/merchant/group/add';
     const API_DELETE = 'https://api.weixin.qq.com/merchant/group/del';
+    const API_UPDATE_ATTRIBUTE = 'https://api.weixin.qq.com/merchant/group/propertymod';
+    const API_UPDATE_PRODUCT = 'https://api.weixin.qq.com/merchant/group/productmod';
+    const API_LISTS = 'https://api.weixin.qq.com/merchant/group/getall';
+    const API_GET_BY_ID = 'https://api.weixin.qq.com/merchant/group/getbyid';
 
     public function __construct(AccessToken $accessToken)
     {
@@ -73,7 +77,7 @@ class Group implements GroupInterface
     public function delete($groupId)
     {
         $response = $this->http->jsonPost(self::API_DELETE,array(
-            'group_id'=>$groupId
+            'group_id' => $groupId
         ));
 
         if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
@@ -89,32 +93,73 @@ class Group implements GroupInterface
      * @param $groupId
      * @param $groupName
      * @return bool
+     * @throws Exception
      */
     public function updateAttribute($groupId, $groupName)
     {
-        // TODO: Implement updateAttribute() method.
+        $response = $this->http->jsonPost(self::API_UPDATE_ATTRIBUTE,array(
+            'group_id' => $groupId,
+            'group_name' => $groupName
+        ));
+
+        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+            return true;
+        } else {
+            throw new Exception($response['errmsg'],$response['errcode']);
+        }
     }
 
     /**
      * 修改分组商品
      *
      * @param $groupId
-     * @param $product
+     * @param array $product
      * @return bool
+     * @throws Exception
      */
-    public function updateProduct($groupId, $product)
+    public function updateProduct($groupId, array $product)
     {
-        // TODO: Implement updateProduct() method.
+        foreach ($product as $v) {
+
+            $keys = array_keys($v);
+
+            if (count($keys) == 2) {
+                if (!( $keys[0] == 'product_id' && $keys[1] == 'mod_action' )) {
+                    $data[] = array('product_id' =>$v[$keys[0]], 'mod_action' => $v[$keys[1]]);
+                }
+
+            }
+
+        }
+
+        $response = $this->http->jsonPost(self::API_UPDATE_PRODUCT,array(
+            'group_id' => $groupId,
+            'product' => isset($data) && is_array($data) ? $data : $product
+        ));
+
+        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+            return true;
+        } else {
+            throw new Exception($response['errmsg'],$response['errcode']);
+        }
+
     }
 
     /**
      * 获得全部商品
      *
      * @return array
+     * @throws Exception
      */
     public function lists()
     {
-        // TODO: Implement lists() method.
+        $response = $this->http->get(self::API_LISTS);
+
+        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+            return $response['groups_detail'];
+        } else {
+            throw new Exception($response['errmsg'],$response['errcode']);
+        }
     }
 
     /**
@@ -122,10 +167,19 @@ class Group implements GroupInterface
      *
      * @param $groupId
      * @return array
+     * @throws Exception
      */
     public function getById($groupId)
     {
-        // TODO: Implement getById() method.
+        $response = $this->http->jsonPost(self::API_GET_BY_ID,array(
+            'group_id' => $groupId
+        ));
+
+        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+            return $response['group_detail'];
+        } else {
+            throw new Exception($response['errmsg'],$response['errcode']);
+        }
     }
 
 }
