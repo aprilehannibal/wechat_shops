@@ -30,6 +30,11 @@ class ProductData
 
     public function setBaseAttr($name, $category, $main_img, $img,$buyLimit = NULL)
     {
+
+        if (empty($this->detail)) throw new Exception('detail 不允许为空');
+        if (empty($this->property)) throw new Exception('property 不允许为空');
+        if (empty($this->skuInfo)) throw new Exception('skuInfo 不允许为空');
+
         $this->baseAttr = array(
             'name' => $name,
             'category' => $category,
@@ -80,6 +85,8 @@ class ProductData
             'icon_url' => $iconurl,
             'quantity' => $quantity
         );
+
+        return $this;
     }
 
     public function setAttrext($isPostFree, $isHasReceipt, $isUnderGuaranty, $isSupportReplace, $country, $province, $city, $address)
@@ -102,6 +109,8 @@ class ProductData
 
     public function setDeliveryInfo($deliveryType, $templateId)
     {
+        if (empty($this->express)) throw new Exception('express 不允许为空');
+
         $this->deliveryInfo = array(
             'delivery_type' => $deliveryType,
             'template_id' => $templateId,
@@ -123,6 +132,12 @@ class ProductData
 
     public function getData()
     {
+        if (empty($this->baseAttr)) throw new Exception('baseAttr 不允许为空');
+        if (empty($this->skuList)) throw new Exception('skuList 不允许为空');
+        if (empty($this->attrext)) throw new Exception('attrext 不允许为空');
+        if (empty($this->deliveryInfo)) throw new Exception('deliveryInfo 不允许为空');
+
+
         return $this->data = array(
             # base_attr or product_base
             'product_base' => $this->baseAttr,
@@ -132,13 +147,23 @@ class ProductData
         );
     }
 
+    public function __isset($name)
+    {
+        return isset($this->data[$name]);
+    }
+
     public function __get($name)
     {
         return $this->data[$name];
     }
 
+    public function __set($name,$value)
+    {
+        $this->data[$name] = $value;
+    }
+
     public function __call($method,$parameters)
     {
-        dd(func_num_args());
+        //todo 明天很多方法改用 __call 方法
     }
 }
