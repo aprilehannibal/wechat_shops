@@ -68,7 +68,7 @@ class Shelf implements ShelfInterface
             'shelf_name'=>$shelfName
         ));
 
-        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+        if ($response['errcode'] == 0) {
             return $response['shelf_id'];
         } else {
             throw new Exception($response['errmsg'],$response['errcode']);
@@ -87,7 +87,7 @@ class Shelf implements ShelfInterface
     {
         $response = $this->http->jsonPost(self::API_DELETE,array('shelf_id' => $shelfId));
 
-        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+        if ($response['errcode'] == 0) {
             return true;
         } else {
             throw new Exception($response['errmsg'],$response['errcode']);
@@ -121,7 +121,7 @@ class Shelf implements ShelfInterface
             'shelf_name'=>$shelfName
         ));
 
-        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+        if ($response['errcode'] == 0) {
             return true;
         } else {
             throw new Exception($response['errmsg'],$response['errcode']);
@@ -138,7 +138,7 @@ class Shelf implements ShelfInterface
     {
         $response = $this->http->get(self::API_LISTS);
 
-        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+        if ($response['errcode'] == 0) {
             return $response['shelves'];
         } else {
             throw new Exception($response['errmsg'],$response['errcode']);
@@ -156,7 +156,7 @@ class Shelf implements ShelfInterface
     {
         $response = $this->http->jsonPost(self::API_GET_BY_ID,array('shelf_id' => $shelfId));
 
-        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+        if ($response['errcode'] == 0) {
             return array_slice($response,2);
         } else {
             throw new Exception($response['errmsg'],$response['errcode']);

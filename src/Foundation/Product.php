@@ -22,53 +22,70 @@ interface Product
      * @param array $data
      * @return mixed
      */
-    public function create(array $data);
+    public function create($data);
+
+    /**
+     * 删除商品
+     *
+     * @param $productId
+     * @return mixed
+     */
+    public function delete($productId);
+
+    /**
+     * 修改商品
+     *
+     * @param $data
+     * @return mixed
+     */
+    public function update($data);
 
     /**
      * 查询商品
      *
-     * @param array $data
+     * @param $productId
      * @return mixed
      */
-    public function get(array $data);
+    public function get($productId);
 
     /**
      * 从状态获取商品
      *
-     * @param array $data
+     * @param $status
      * @return mixed
      */
-    public function getByStatus(array $data);
+    public function getByStatus($status = 0);
 
     /**
      * 商品上下架
      *
-     * @param array $data
+     * @param $productId
+     * @param int $status
      * @return mixed
      */
-    public function updateStatus(array $data);
+    public function updateStatus($productId, $status = 0);
 
     /**
      * 获取指定分类的所有子分类
      *
-     * @param array $data
+     * @param $cateId
      * @return mixed
      */
-    public function getSub(array $data);
+    public function getSub($cateId = 1);
 
     /**
      * 获取指定子分类的所有SKU
      *
-     * @param array $data
+     * @param $cateId
      * @return mixed
      */
-    public function getSku(array $data);
+    public function getSku($cateId);
 
     /**
      * 获取指定分类的所有属性
      *
-     * @param array $data
+     * @param $cateId
      * @return mixed
      */
-    public function getProperty(array $data);
+    public function getProperty($cateId);
 }

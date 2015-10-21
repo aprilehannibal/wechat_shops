@@ -60,7 +60,7 @@ class Group implements GroupInterface
             )
         ));
 
-        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+        if ($response['errcode'] == 0) {
             return $response['group_id'];
         } else {
             throw new Exception($response['errmsg'],$response['errcode']);
@@ -80,7 +80,7 @@ class Group implements GroupInterface
             'group_id' => $groupId
         ));
 
-        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+        if ($response['errcode'] == 0) {
             return true;
         } else {
             throw new Exception($response['errmsg'],$response['errcode']);
@@ -102,7 +102,7 @@ class Group implements GroupInterface
             'group_name' => $groupName
         ));
 
-        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+        if ($response['errcode'] == 0) {
             return true;
         } else {
             throw new Exception($response['errmsg'],$response['errcode']);
@@ -137,7 +137,7 @@ class Group implements GroupInterface
             'product' => isset($data) && is_array($data) ? $data : $product
         ));
 
-        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+        if ($response['errcode'] == 0) {
             return true;
         } else {
             throw new Exception($response['errmsg'],$response['errcode']);
@@ -155,7 +155,7 @@ class Group implements GroupInterface
     {
         $response = $this->http->get(self::API_LISTS);
 
-        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+        if ($response['errcode'] == 0) {
             return $response['groups_detail'];
         } else {
             throw new Exception($response['errmsg'],$response['errcode']);
@@ -175,7 +175,7 @@ class Group implements GroupInterface
             'group_id' => $groupId
         ));
 
-        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+        if ($response['errcode'] == 0) {
             return $response['group_detail'];
         } else {
             throw new Exception($response['errmsg'],$response['errcode']);

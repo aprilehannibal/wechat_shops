@@ -207,7 +207,7 @@ class Postage implements PostageInterface
             )
         ));
 
-        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+        if ($response['errcode'] == 0) {
             return $response['template_id'];
         } else {
             throw new Exception($response['errmsg'],$response['errcode']);
@@ -225,7 +225,7 @@ class Postage implements PostageInterface
     {
         $response = $this->http->jsonPost(self::API_DELETE,array('template_id' => $templateId));
 
-        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+        if ($response['errcode'] == 0) {
             return true;
         } else {
             throw new Exception($response['errmsg'],$response['errcode']);
@@ -259,7 +259,7 @@ class Postage implements PostageInterface
             )
         ));
 
-        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+        if ($response['errcode'] == 0) {
             return true;
         } else {
             throw new Exception($response['errmsg'],$response['errcode']);
@@ -277,7 +277,7 @@ class Postage implements PostageInterface
     {
         $response = $this->http->jsonPost(self::API_DELETE,array('template_id' => $templateId));
 
-        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+        if ($response['errcode'] == 0) {
             return $response['template_info'];
         } else {
             throw new Exception($response['errmsg'],$response['errcode']);
@@ -294,7 +294,7 @@ class Postage implements PostageInterface
     {
         $response = $this->http->get(self::API_LISTS);
 
-        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+        if ($response['errcode'] == 0) {
             return $response['templates_info'];
         } else {
             throw new Exception($response['errmsg'],$response['errcode']);

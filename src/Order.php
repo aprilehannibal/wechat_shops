@@ -65,7 +65,7 @@ class Order implements OrderInterface
     {
         $response = $this->http->jsonPost(self::API_GET_BY_ID, array('order_id'=>$orderId));
 
-        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+        if ($response['errcode'] == 0) {
             return $response['order'];
         } else {
             throw new Exception($response['errmsg'],$response['errcode']);
@@ -89,7 +89,7 @@ class Order implements OrderInterface
             'endtime' => $endTime
         ));
 
-        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+        if ($response['errcode'] == 0) {
             return $response['order_list'];
         } else {
             throw new Exception($response['errmsg'],$response['errcode']);
@@ -129,7 +129,7 @@ class Order implements OrderInterface
             'is_others'=> $isOthers
         ));
 
-        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+        if ($response['errcode'] == 0) {
             return true;
         } else {
             throw new Exception($response['errmsg'],$response['errcode']);
@@ -147,7 +147,7 @@ class Order implements OrderInterface
     {
         $response = $this->http->jsonPost(self::API_GET_BY_ID, array('order_id'=>$orderId));
 
-        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+        if ($response['errcode'] == 0) {
             return true;
         } else {
             throw new Exception($response['errmsg'],$response['errcode']);

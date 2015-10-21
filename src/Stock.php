@@ -49,7 +49,7 @@ class Stock implements StockInterface
             'quantity' => $quantity
         ));
 
-        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+        if ($response['errcode'] == 0) {
             return true;
         } else {
             throw new Exception($response['errmsg'],$response['errcode']);
@@ -74,7 +74,7 @@ class Stock implements StockInterface
             'quantity' => $quantity
         ));
 
-        if ($response['errcode'] == 0 && $response['errmsg'] == 'success') {
+        if ($response['errcode'] == 0) {
             return true;
         } else {
             throw new Exception($response['errmsg'],$response['errcode']);
