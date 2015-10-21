@@ -63,6 +63,8 @@ class Postage implements PostageInterface
     }
 
     /**
+     * 设置TopFee
+     *
      * @param string $type
      * @throws Exception
      */
@@ -72,14 +74,29 @@ class Postage implements PostageInterface
         if (empty($this->normal) && empty($this->custom)) throw new Exception('请正确传入参数');
         if (empty($this->normal) || empty($this->custom)) throw new Exception('请正确传入参数');
 
-        $this->topFee[] = array(
-            'Type' => $type,
-            'Normal' => $this->normal,
-            'Custom' => $this->custom
-        );
+        $keys = array_keys($this->custom);
+
+        foreach ($keys as $v) {
+            if (!is_numeric($v)) throw new Exception('数据不合法');
+        }
+
+        foreach ($this->custom as $custom) {
+
+            $this->topFee[] = array(
+                'Type' => $type,
+                'Normal' => $this->normal,
+                'Custom' => $custom
+            );
+        }
+
+        dump($this);
+
+        exit;
     }
 
     /**
+     * 设置 Normal
+     *
      * @param $startStandards
      * @param $startFees
      * @param $addStandards
@@ -99,6 +116,7 @@ class Postage implements PostageInterface
     }
 
     /**
+     * 设置Custom
      *
      * @param $startStandards
      * @param $startFees
@@ -118,11 +136,13 @@ class Postage implements PostageInterface
         if (empty($destCity)) {
             $destProvince = is_array($destProvince) ? $destProvince : explode(',',$destProvince);
 
-            if (!empty($destCity)) {
                 foreach ($destProvince as $province) {
 
 
                     $citys = $this->regional->getCity($province);
+
+                    if (empty($citys)) throw new Exception('请传入合法的省份名!!!');
+
                     foreach ($citys[0] as $city) {
                         $this->custom[] = array(
                             'StartStandards' => $startStandards,
@@ -136,7 +156,6 @@ class Postage implements PostageInterface
                     }
 
                 }
-            }
 
             return $this;
 
@@ -177,7 +196,7 @@ class Postage implements PostageInterface
     public function add($name, $topFee = null, $assumer = 0, $valuation = 0)
     {
         if (empty($topFee) && empty($this->topFee)) {
-            throw new Exception('请正确填入参数');
+            throw new Exception('该参数不允许为空');
         }
 
         $response = $this->http->jsonPost(self::API_ADD,array(
@@ -228,7 +247,7 @@ class Postage implements PostageInterface
     public function update($templateId, $name, $topFee = null, $assumer = 0, $valuation = 0)
     {
         if (empty($topFee) && empty($this->topFee)) {
-            throw new Exception('请正确填入参数');
+            throw new Exception('该参数不允许为空');
         }
 
         $response = $this->http->jsonPost(self::API_UPDATE,array(
