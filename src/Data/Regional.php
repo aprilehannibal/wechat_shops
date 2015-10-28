@@ -6,7 +6,7 @@
  * Time: 11:48
  */
 
-namespace Shop;
+namespace Shop\Data;
 
 
 use Overtrue\Wechat\Exception;

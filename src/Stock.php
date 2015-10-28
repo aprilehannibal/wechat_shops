@@ -9,28 +9,20 @@
 namespace Shop;
 
 
-use Overtrue\Wechat\AccessToken;
-use Overtrue\Wechat\Http;
+use Shop\Foundation\Base;
 use Shop\Foundation\Stock as StockInterface;
-use Overtrue\Wechat\Exception;
+use Shop\Foundation\ShopsException;
 
 /**
  * Class Stock
  * @package Shop
  * @todo 后续优化 链式，魔术调用
  */
-class Stock implements StockInterface
+class Stock extends Base implements StockInterface
 {
-
-    private $http;
 
     const API_ADD = 'https://api.weixin.qq.com/merchant/stock/add';
     const API_REDUCE = 'https://api.weixin.qq.com/merchant/stock/reduce';
-
-    public function __construct(AccessToken $accessToken)
-    {
-        $this->http = new Http($accessToken);
-    }
 
     /**
      * 增加库存
@@ -39,21 +31,17 @@ class Stock implements StockInterface
      * @param array $skuInfo
      * @param $quantity
      * @return bool
-     * @throws Exception
+     * @throws ShopsException
      */
     public function add($productId, array $skuInfo, $quantity)
     {
-        $response = $this->http->jsonPost(self::API_ADD,array(
+        $this->response = $this->http->jsonPost(self::API_ADD,array(
             'product_id' => $productId,
             'sku_info' => $this->getSkuInfo($skuInfo),
             'quantity' => $quantity
         ));
 
-        if ($response['errcode'] == 0) {
-            return true;
-        } else {
-            throw new Exception($response['errmsg'],$response['errcode']);
-        }
+        return $this->getResponse();
 
     }
 
@@ -64,21 +52,17 @@ class Stock implements StockInterface
      * @param array $skuInfo
      * @param $quantity
      * @return bool
-     * @throws Exception
+     * @throws ShopsException
      */
     public function reduce($productId, array $skuInfo, $quantity)
     {
-        $response = $this->http->jsonPost(self::API_REDUCE,array(
+        $this->response = $this->http->jsonPost(self::API_REDUCE,array(
             'product_id' => $productId,
             'sku_info' => $this->getSkuInfo($skuInfo),
             'quantity' => $quantity
         ));
 
-        if ($response['errcode'] == 0) {
-            return true;
-        } else {
-            throw new Exception($response['errmsg'],$response['errcode']);
-        }
+        return $this->getResponse();
     }
 
     /**

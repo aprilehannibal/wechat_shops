@@ -6,63 +6,43 @@
  * Time: 10:28
  */
 
-namespace Shop;
+namespace Shop\Data;
 
 
 use Overtrue\Wechat\Exception;
 
 /**
+ * 商品属性
+ *
  * Class ProductData
  * @package Shop
- * @property array $detail
- * @property array $property
- * @property array $skuInfo
  * @property array $baseAttr
  * @property array $skuList
  * @property array $attrext
  * @property array $deliveryInfo
- * @property array $express
+ * @method $this setDetail($name,$value)
+ * @method $this setProperty($name,$value)
  */
-class ProductData
+class Product
 {
 
     private $data;
 
-    public function setBaseAttr($name, $category, $main_img, $img,$buyLimit = NULL)
+    public function setBaseAttr($name, $category, $main_img, array $img, $buyLimit = null)
     {
-
-        if (empty($this->detail)) throw new Exception('detail 不允许为空');
-        if (empty($this->property)) throw new Exception('property 不允许为空');
-        if (empty($this->skuInfo)) throw new Exception('skuInfo 不允许为空');
+//        if (empty($this->property)) throw new Exception('property 不允许为空');
+//        if (empty($this->skuInfo)) throw new Exception('skuInfo 不允许为空');
 
         $this->baseAttr = array(
             'name' => $name,
             'category' => $category,
             'main_img' => $main_img,
-            'img' => $img,
-            'detail' => $this->detail,
-            'property' => $this->property,
-            'sku_info' => $this->skuInfo,
-            'buy_limit' => $buyLimit
+            'img' => $img
         );
 
-        return $this;
-    }
-
-    public function setDetail($name, $value)
-    {
-        if (!array_search($name,['text','img'])) throw new Exception('请正确填写参数名称');
-
-        $this->detail[][$name] = $value;
-
-        return $this;
-    }
-
-    public function setProperty($name, $value)
-    {
-        // '$属性' '$值'
-        // 123123  '$值'
-        $this->property[][$name] = $value;
+        if (!empty($buyLimit)) {
+            $this->data['baseAttr']['buy_limit'] = $buyLimit;
+        }
 
         return $this;
     }
@@ -71,14 +51,14 @@ class ProductData
     {
         // '$属性' '$值'
         // 123123  '$值'
-        $this->skuInfo[][$name] = $value;
+        $this->data['baseAttr']['sku_info'][][$name] = $value;
 
         return $this;
     }
 
     public function setSkuList($oriPrice, $price, $iconurl, $quantity, $skuId = null)
     {
-        $this->skuList[] = array(
+        $this->data['skuList'][] = array(
             'sku_id' => $skuId,
             'ori_price' => $oriPrice,
             'price' => $price,
@@ -113,8 +93,7 @@ class ProductData
 
         $this->deliveryInfo = array(
             'delivery_type' => $deliveryType,
-            'template_id' => $templateId,
-            'express' => $this->express
+            'template_id' => $templateId
         );
 
         return $this;
@@ -122,7 +101,7 @@ class ProductData
 
     public function setExpress($id, $price)
     {
-        $this->express[] = array(
+        $this->data['deliveryInfo']['express'][] = array(
             'id' => $id,
             'price' => $price
         );
@@ -132,10 +111,10 @@ class ProductData
 
     public function getData()
     {
-        if (empty($this->baseAttr)) throw new Exception('baseAttr 不允许为空');
-        if (empty($this->skuList)) throw new Exception('skuList 不允许为空');
-        if (empty($this->attrext)) throw new Exception('attrext 不允许为空');
-        if (empty($this->deliveryInfo)) throw new Exception('deliveryInfo 不允许为空');
+//        if (empty($this->baseAttr)) throw new Exception('baseAttr 不允许为空');
+//        if (empty($this->skuList)) throw new Exception('skuList 不允许为空');
+//        if (empty($this->attrext)) throw new Exception('attrext 不允许为空');
+//        if (empty($this->deliveryInfo)) throw new Exception('deliveryInfo 不允许为空');
 
 
         return $this->data = array(
@@ -147,23 +126,26 @@ class ProductData
         );
     }
 
-    public function __isset($name)
-    {
-        return isset($this->data[$name]);
-    }
-
-    public function __get($name)
-    {
-        return $this->data[$name];
-    }
-
-    public function __set($name,$value)
-    {
-        $this->data[$name] = $value;
-    }
-
     public function __call($method,$parameters)
     {
-        //todo 明天很多方法改用 __call 方法
+        if (count($parameters) != 2) throw new Exception('参数输入有误，请重新填入参数');
+
+        $str = strstr($method,'set');
+
+        if (!$str) {
+            throw new Exception('错误方法名');
+        }
+
+        $arr = array_search(substr($method,3),array('Detail','Property'));
+
+        dd($arr);
+
+        if ($arr != false)
+            throw new Exception('错误方法名');
+
+        $this->baseAttr[strtolower($str[$arr])][][$parameters[0]] = $parameters[1];
+
+        return $this;
+
     }
 }

@@ -45,7 +45,7 @@ interface Postage
      * @param int $valuation
      * @return bool
      */
-    public function update($templateId, $name, $topFee = null, $assumer = 0, $valuation = 0);
+    public function update($templateId, $name, $topFee, $assumer = 0, $valuation = 0);
 
     /**
      * @param $templateId

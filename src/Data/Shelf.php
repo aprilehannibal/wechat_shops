@@ -6,12 +6,12 @@
  * Time: 23:12
  */
 
-namespace Shop;
+namespace Shop\Data;
 
 
 use Overtrue\Wechat\Exception;
 
-class ShelfData
+class Shelf
 {
     /**
      * @var array 数据

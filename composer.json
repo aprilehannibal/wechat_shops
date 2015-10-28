@@ -1,7 +1,6 @@
 {
   "name": "a939638621/wechat-shop",
   "description": "微信小店",
-  "minimum-stability": "dev",
   "license": "MIT",
   "authors": [
     {
@@ -11,10 +10,9 @@
   ],
   "require": {
       "php":">=5.3",
-      "ext-mcrypt": "*",
-      "overtrue/wechat": "2.1.14",
-    "symfony/var-dumper": "v2.7.5",
-    "illuminate/support": "v5.1.20"
+      "overtrue/wechat": "2.1.*",
+      "symfony/var-dumper": "2.7.*",
+      "illuminate/support": "5.1.*"
    },
   "autoload": {
        "psr-4": {

@@ -8,11 +8,10 @@
 
 namespace Shop;
 
-
-use Overtrue\Wechat\AccessToken;
-use Overtrue\Wechat\Http;
+use Shop\Foundation\Base;
 use Shop\Foundation\Shelf as ShelfInterface;
-use Overtrue\Wechat\Exception;
+use Shop\Data\ShelfData;
+use Shop\Foundation\ShopsException;
 
 /**
  * 货架系统
@@ -20,27 +19,13 @@ use Overtrue\Wechat\Exception;
  * Class Shelf
  * @package Shop
  */
-class Shelf implements ShelfInterface
+class Shelf extends Base implements ShelfInterface
 {
-
-    /**
-     * @var Http
-     */
-    private $http;
-
     const API_ADD = 'https://api.weixin.qq.com/merchant/shelf/add';
     const API_DELETE = 'https://api.weixin.qq.com/merchant/shelf/del';
     const API_UPDATE = 'https://api.weixin.qq.com/merchant/shelf/mod';
     const API_LISTS = 'https://api.weixin.qq.com/merchant/shelf/getall';
     const API_GET_BY_ID = 'https://api.weixin.qq.com/merchant/shelf/getbyid';
-
-    /**
-     * @param AccessToken $accessToken
-     */
-    public function __construct(AccessToken $accessToken)
-    {
-        $this->http = new Http($accessToken);
-    }
 
     /**
      * 添加货架
@@ -49,30 +34,27 @@ class Shelf implements ShelfInterface
      * @param $shelfBanner
      * @param $shelfName
      * @return int
-     * @throws Exception
+     * @throws ShopsException
      */
     public function add($shelfData,$shelfBanner,$shelfName)
     {
 
         if (!($shelfData instanceof ShelfData) && !is_array($shelfData)) {
-            throw new Exception('$shelfData 是数组 ，或者是 ShelfData class');
+            throw new ShopsException('$shelfData 是数组 ，或者是 ShelfData class');
         }
 
         if ($shelfData instanceof ShelfData) {
             $shelfData = $shelfData->getData();
         }
 
-        $response = $this->http->jsonPost(self::API_ADD,array(
+        $this->response = $this->http->jsonPost(self::API_ADD,array(
             'shelf_data' => $shelfData,
             'shelf_banner'=>$shelfBanner,
             'shelf_name'=>$shelfName
         ));
 
-        if ($response['errcode'] == 0) {
-            return $response['shelf_id'];
-        } else {
-            throw new Exception($response['errmsg'],$response['errcode']);
-        }
+
+        return $this->getResponse();
 
     }
 
@@ -81,17 +63,13 @@ class Shelf implements ShelfInterface
      *
      * @param int $shelfId
      * @return bool
-     * @throws Exception
+     * @throws ShopsException
      */
     public function delete($shelfId)
     {
-        $response = $this->http->jsonPost(self::API_DELETE,array('shelf_id' => $shelfId));
+        $this->response = $this->http->jsonPost(self::API_DELETE,array('shelf_id' => $shelfId));
 
-        if ($response['errcode'] == 0) {
-            return true;
-        } else {
-            throw new Exception($response['errmsg'],$response['errcode']);
-        }
+        return $this->getResponse();
     }
 
     /**
@@ -102,47 +80,39 @@ class Shelf implements ShelfInterface
      * @param $shelfBanner
      * @param $shelfName
      * @return bool
-     * @throws Exception
+     * @throws ShopsException
      */
     public function update($shelfData,$shelfId,$shelfBanner,$shelfName)
     {
         if (!($shelfData instanceof ShelfData) && !is_array($shelfData)) {
-            throw new Exception('$shelfData 是数组 ，或者是 ShelfData class');
+            throw new ShopsException('$shelfData 是数组 ，或者是 ShelfData class');
         }
 
         if ($shelfData instanceof ShelfData) {
             $shelfData = $shelfData->getData();
         }
 
-        $response = $this->http->jsonPost(self::API_UPDATE,array(
+        $this->response = $this->http->jsonPost(self::API_UPDATE,array(
             'shelf_id' => $shelfId,
             'shelf_data' => $shelfData,
             'shelf_banner'=>$shelfBanner,
             'shelf_name'=>$shelfName
         ));
 
-        if ($response['errcode'] == 0) {
-            return true;
-        } else {
-            throw new Exception($response['errmsg'],$response['errcode']);
-        }
+        return $this->getResponse();
     }
 
     /**
      * 获取所有货架
      *
      * @return array
-     * @throws Exception
+     * @throws ShopsException
      */
     public function lists()
     {
-        $response = $this->http->get(self::API_LISTS);
+        $this->response = $this->http->get(self::API_LISTS);
 
-        if ($response['errcode'] == 0) {
-            return $response['shelves'];
-        } else {
-            throw new Exception($response['errmsg'],$response['errcode']);
-        }
+        return $this->getResponse();
     }
 
     /**
@@ -150,16 +120,12 @@ class Shelf implements ShelfInterface
      *
      * @param $shelfId
      * @return array
-     * @throws Exception
+     * @throws ShopsException
      */
     public function getById($shelfId)
     {
-        $response = $this->http->jsonPost(self::API_GET_BY_ID,array('shelf_id' => $shelfId));
+        $this->response = $this->http->jsonPost(self::API_GET_BY_ID,array('shelf_id' => $shelfId));
 
-        if ($response['errcode'] == 0) {
-            return array_slice($response,2);
-        } else {
-            throw new Exception($response['errmsg'],$response['errcode']);
-        }
+        return $this->getResponse();
     }
 }

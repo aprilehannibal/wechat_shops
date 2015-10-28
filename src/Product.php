@@ -8,15 +8,13 @@
 
 namespace Shop;
 
-use Overtrue\Wechat\AccessToken;
-use Overtrue\Wechat\Exception;
-use Overtrue\Wechat\Http;
+
+use Shop\Foundation\Base;
 use Shop\Foundation\Product as ProductInterface;
+use Shop\Foundation\ShopsException;
 
-class Product implements ProductInterface
+class Product extends Base implements ProductInterface
 {
-
-    private $http;
 
     const API_CREATE = 'https://api.weixin.qq.com/merchant/create';
     const API_DELETE = 'https://api.weixin.qq.com/merchant/del';
@@ -27,11 +25,6 @@ class Product implements ProductInterface
     const API_SUB = 'https://api.weixin.qq.com/merchant/category/getsub';
     const API_SKU = 'https://api.weixin.qq.com/merchant/category/getsku';
     const API_Property = 'https://api.weixin.qq.com/merchant/category/getproperty';
-
-    public function __construct(AccessToken $accessToken)
-    {
-        $this->http = new Http($accessToken);
-    }
 
     /**
      * 查询商品
@@ -49,17 +42,13 @@ class Product implements ProductInterface
      *
      * @param $productId
      * @return bool
-     * @throws Exception
+     * @throws ShopsException
      */
     public function delete($productId)
     {
-        $response = $this->http->jsonPost(self::API_DELETE, array('product_id'=>$productId));
+        $this->response = $this->http->jsonPost(self::API_DELETE, array('product_id'=>$productId));
 
-        if ($response['errcode'] == 0) {
-            return true;
-        } else {
-            throw new Exception($response['errmsg'],$response['errcode']);
-        }
+        return $this->getResponse();
     }
 
     /**
@@ -78,17 +67,14 @@ class Product implements ProductInterface
      *
      * @param $productId
      * @return bool
-     * @throws Exception
+     * @throws ShopsException
      */
     public function get($productId)
     {
-        $response = $this->http->jsonPost(self::API_GET, array('product_id'=>$productId));
+        $this->response = $this->http->jsonPost(self::API_GET, array('product_id'=>$productId));
 
-        if ($response['errcode'] == 0) {
-            return $response['product_info'];
-        } else {
-            throw new Exception($response['errmsg'],$response['errcode']);
-        }
+
+        return $this->getResponse();
     }
 
     /**
@@ -96,17 +82,13 @@ class Product implements ProductInterface
      *
      * @param int $status
      * @return mixed
-     * @throws Exception
+     * @throws ShopsException
      */
     public function getByStatus($status = 0)
     {
-        $response = $this->http->jsonPost(self::API_GET, array('status'=>$status));
+        $this->response = $this->http->jsonPost(self::API_GET, array('status'=>$status));
 
-        if ($response['errcode'] == 0) {
-            return $response['products_info'];
-        } else {
-            throw new Exception($response['errmsg'],$response['errcode']);
-        }
+        return $this->getResponse();
     }
 
     /**
@@ -115,20 +97,16 @@ class Product implements ProductInterface
      * @param $productId
      * @param int $status
      * @return bool
-     * @throws Exception
+     * @throws ShopsException
      */
     public function updateStatus($productId, $status = 0)
     {
-        $response = $this->http->jsonPost(self::API_UPDATE_STATUS, array(
+        $this->response = $this->http->jsonPost(self::API_UPDATE_STATUS, array(
             'product_id'=>$productId,
             'status'=>$status
         ));
 
-        if ($response['errcode'] == 0) {
-            return true;
-        } else {
-            throw new Exception($response['errmsg'],$response['errcode']);
-        }
+        $this->getResponse();
     }
 
     /**
@@ -136,17 +114,13 @@ class Product implements ProductInterface
      *
      * @param $cateId
      * @return mixed
-     * @throws Exception
+     * @throws ShopsException
      */
     public function getSub($cateId = 1)
     {
-        $response = $this->http->jsonPost(self::API_SUB, array('cate_id'=> $cateId));
+        $this->response = $this->http->jsonPost(self::API_SUB, array('cate_id'=> $cateId));
 
-        if ($response['errcode'] == 0) {
-            return $response['cate_list'];
-        } else {
-            throw new Exception($response['errmsg'],$response['errcode']);
-        }
+        $this->getResponse();
     }
 
     /**
@@ -154,17 +128,14 @@ class Product implements ProductInterface
      *
      * @param $cateId
      * @return mixed
-     * @throws Exception
+     * @throws ShopsException
      */
     public function getSku($cateId)
     {
-        $response = $this->http->jsonPost(self::API_SKU, array('cate_id'=> $cateId));
+        $this->response = $this->http->jsonPost(self::API_SKU, array('cate_id'=> $cateId));
 
-        if ($response['errcode'] == 0) {
-            return $response['sku_table'];
-        } else {
-            throw new Exception($response['errmsg'],$response['errcode']);
-        }
+        return $this->getResponse();
+
     }
 
     /**
@@ -172,17 +143,17 @@ class Product implements ProductInterface
      *
      * @param $cateId
      * @return mixed
-     * @throws Exception
+     * @throws ShopsException
      */
     public function getProperty($cateId)
     {
-        $response = $this->http->jsonPost(self::API_Property, array('cate_id'=> $cateId));
+        $this->response = $this->http->jsonPost(self::API_Property, array('cate_id'=> $cateId));
 
-        if ($response['errcode'] == 0) {
-            return $response['properties'];
-        } else {
-            throw new Exception($response['errmsg'],$response['errcode']);
-        }
+        //dd($this);exit;
+
+        return $this->getResponse();
+
+
     }
 
 
