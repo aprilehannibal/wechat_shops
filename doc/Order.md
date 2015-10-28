@@ -12,7 +12,6 @@
 ##Const
 
 ```PHP
-<?php
     const EMS = 'Fsearch_code';
     const STO = '002shentong';
     const ZTO = '066zhongtong';
@@ -23,13 +22,11 @@
     const ZJS = '064zhaijisong';
     const HUI_TONG = '020huitong';
     const YI_XUN = 'zj001yixun';
-
 ```
 
 ##API
 
-```php
-<?php 
+```php 
     //根据订单ID获取订单详情
     $order->getById($orderId)
     //根据订单状态/创建时间获取订单详情
@@ -38,7 +35,6 @@
     $order->setDelivery($orderId,$deliveryCompany = null,$deliveryTrackNo = null,$needDelivery = 1,$isOthers = null)
     //关闭订单
     $order->close($orderId)
-
 ```
 
 ##设置发货信息
