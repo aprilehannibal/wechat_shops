@@ -3,9 +3,7 @@
 ##初始化
 
 ```php
-
     $group = new \Shop\Order($config);
-
 ```
 > $config 参见　[初始化](init.md)!!!
 
