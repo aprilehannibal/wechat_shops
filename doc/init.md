@@ -3,8 +3,6 @@
 
 
 ```php
-<?php
-
 //引入自动加载文件
 require "../vendor/autoload.php";
 
@@ -13,6 +11,4 @@ $appId = 'appId';
 $appSecret = 'appSecret';
 
 $config = new \Shop\Foundation\Config($appId,$appSecret);
-
-
 ```
