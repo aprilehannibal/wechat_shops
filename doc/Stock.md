@@ -10,8 +10,8 @@ $stock = new \Shop\Stock($config);
 ##API
 
 ```php
-$stock->add($productId, array $skuInfo, $quantity)    //增加库存
-$stock->reduce($productId, array $skuInfo, $quantity)　//减少库存
+$stock->add($productId, array $skuInfo, $quantity);     //增加库存
+$stock->reduce($productId, array $skuInfo, $quantity);　//减少库存
 ```
 ## $skuInfo
 

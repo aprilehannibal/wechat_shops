@@ -29,17 +29,17 @@ $shelfData = new \Shop\Data\Shelf();
 ####Api
 
 ```php
-$shelfData->controlOne($count, $groupId, $eid)               //控件１
-$shelfData->controlTwo(array $groupId, $eid)                 //控件２
-$shelfData->controlThree($groupId, $img, $eid)               //控件３
-$shelfData->controlFour(array $groups,$eid)                  //控件４
-$shelfData->controlFive(array $groups,$imgBackground,$eid)   //控件５
+$shelfData->controlOne($count, $groupId, $eid);               //控件１
+$shelfData->controlTwo(array $groupId, $eid);                 //控件２
+$shelfData->controlThree($groupId, $img, $eid);               //控件３
+$shelfData->controlFour(array $groups,$eid);                  //控件４
+$shelfData->controlFive(array $groups,$imgBackground,$eid);   //控件５
 ```
 #### controlTwo $groupId
 
 ```php
 //最多只能有４个
-$groupId = array('groupId','groupId','groupId','groupId')
+$groupId = array('groupId','groupId','groupId','groupId');
 ```
 #### controlFour $groupId
 
@@ -49,14 +49,14 @@ $groupId = array(
     array('groupId','img'),
     array('groupId','img'),
     array('groupId','img')
-)
+);
 ```
 
 #### controlFive $groupId
 
 ```php
 //官方没有写限制数字所以不知道最大多少个
-$groupId = array('$groupId','$groupId','$groupId','$groupId')
+$groupId = array('$groupId','$groupId','$groupId','$groupId');
 ```
 
 ###第二种

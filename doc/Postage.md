@@ -10,19 +10,19 @@ $postage = new \Shop\Postage($config);
 ##Const
 
 ```php
-const PING_YOU = '10000027';
-const KUAI_DI = '10000028';
-const EMS = '10000029';
+const PING_YOU = '10000027'; //平邮
+const KUAI_DI = '10000028';  //快递
+const EMS = '10000029';      //EMS
 ```
 
 ##Api 
 
 ```php    
-$postage->add($name, $topFee, $assumer = 0, $valuation = 0)
-$postage->delete($templateId)
-$postage->update($templateId, $name, $topFee, $assumer = 0, $valuation = 0)
-$postage->getById($templateId)
-$postage->lists()
+$postage->add($name, $topFee, $assumer = 0, $valuation = 0);                 //添加模板
+$postage->delete($templateId);                                               //删除模板
+$postage->update($templateId, $name, $topFee, $assumer = 0, $valuation = 0); //修改模板
+$postage->getById($templateId);                                              //根据id获得模板配置
+$postage->lists();                                                           //获得全部模板
 ```
 
 ## $topFee

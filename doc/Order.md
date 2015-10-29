@@ -10,29 +10,29 @@ $group = new \Shop\Order($config);
 ##Const
 
 ```PHP
-const EMS = 'Fsearch_code';
-const STO = '002shentong';
-const ZTO = '066zhongtong';
-const YTO = '056yuantong';
-const TTK = '042tiantian';
-const SF = '003shunfeng';
-const YUN_DA = '059Yunda';
-const ZJS = '064zhaijisong';
-const HUI_TONG = '020huitong';
-const YI_XUN = 'zj001yixun';
+const EMS = 'Fsearch_code';     //EMS
+const STO = '002shentong';      //申通
+const ZTO = '066zhongtong';　   //中通
+const YTO = '056yuantong';　    //圆通
+const TTK = '042tiantian';　    //天天快递
+const SF = '003shunfeng';　     //顺丰
+const YUN_DA = '059Yunda';　    //韵达
+const ZJS = '064zhaijisong';　  //宅急送
+const HUI_TONG = '020huitong';　//汇通
+const YI_XUN = 'zj001yixun';　  //易迅
 ```
 
 ##API
 
 ```php 
 //根据订单ID获取订单详情
-$order->getById($orderId)
+$order->getById($orderId);
 //根据订单状态/创建时间获取订单详情
-$order->getByAttribute($status = null, $beginTime = null, $endTime = null)
+$order->getByAttribute($status = null, $beginTime = null, $endTime = null);
 //设置发货信息
-$order->setDelivery($orderId,$deliveryCompany = null,$deliveryTrackNo = null,$needDelivery = 1,$isOthers = null)
+$order->setDelivery($orderId,$deliveryCompany = null,$deliveryTrackNo = null,$needDelivery = 1,$isOthers = null);
 //关闭订单
-$order->close($orderId)
+$order->close($orderId);
 ```
 
 ##设置发货信息
