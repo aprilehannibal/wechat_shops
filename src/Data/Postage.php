@@ -91,6 +91,8 @@ class Postage  extends Base
 
         $this->custom = array();
 
+        //todo 未做反选，排除一个城市，选择其他
+
         if ($destCity instanceof Regional) {
 
             is_array($destProvince);
