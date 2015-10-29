@@ -269,15 +269,9 @@ class Regional
                         continue;
                     }
 
-                    if (is_array($province)) {
-                        $arr = $province;
-                    } else {
-                        $arr = explode(',',$province);
-                    }
+                    $province = is_array($province) ? $province : array($province) ;
 
-
-
-                    if ((empty($arr) || !$arr) && $type == 'City') {
+                    if ((empty($province) || !$province) && $type == 'City') {
                         if ($provinces['name'] == $province) {
 
                             return $provinces['City'];
@@ -285,7 +279,7 @@ class Regional
                         }
                     } else {
 
-                        foreach ($arr as $v) {
+                        foreach ($province as $v) {
 
                             if ($provinces['name'] == $v) $data[] = $provinces['City'];
                         }

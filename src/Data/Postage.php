@@ -29,8 +29,8 @@ class Postage  extends Base
     public function setTopFee($type = \Shop\Postage::KUAI_DI)
     {
 
-        if (empty($this->normal) && empty($this->custom)) throw new ShopsException('请正确传入参数');
-        if (empty($this->normal) || empty($this->custom)) throw new ShopsException('请正确传入参数');
+        if (empty($this->normal) && empty($this->custom)) throw new ShopsException('normal 和　custom　必须设置');
+        if (empty($this->normal) || empty($this->custom)) throw new ShopsException('normal 和　custom　必须全部设置');
 
         $keys = array_keys($this->custom);
 
@@ -38,14 +38,11 @@ class Postage  extends Base
             if (!is_numeric($v)) throw new ShopsException('数据不合法');
         }
 
-        foreach ($this->custom as $custom) {
-
-            $this->data['topFee'][] = array(
-                'Type' => $type,
-                'Normal' => $this->normal,
-                'Custom' => $custom
-            );
-        }
+        $this->data['topFee'][] = array(
+            'Type' => $type,
+            'Normal' => $this->normal,
+            'Custom' => $this->custom
+        );
 
         return $this;
     }
@@ -81,7 +78,6 @@ class Postage  extends Base
      * @param $destProvince
      * @param null $destCity
      * @param string $destCountry
-     * @param Regional|null $regional
      * @return $this
      * @throws ShopsException
      */
@@ -93,10 +89,7 @@ class Postage  extends Base
 
         if (empty($destProvince)) throw new ShopsException('$destProvince不允许为空');
 
-//        is_array($destCity);
-//        is_string($destCity);
-//        $destCity instanceof Regional;
-
+        $this->custom = array();
 
         if ($destCity instanceof Regional) {
 
@@ -107,7 +100,7 @@ class Postage  extends Base
             //todo 　加入　全国省直辖市的　简称等
             //todo　加入　某些不平等条约的存在　例如　江浙沪　，你们懂得！！
 
-            $destProvince = is_array($destProvince) ? $destProvince : explode(',',$destProvince);
+            $destProvince = is_string($destProvince) ? array($destProvince) : $destProvince;
 
             foreach ($destProvince as $province) {
 
@@ -134,21 +127,27 @@ class Postage  extends Base
 
         } else {
 
-            $destCity = is_array($destCity) ? $destCity : explode(',',$destCity);
+            //todo 未做省份的检测
+            //todo 未做市检测
 
-            foreach ($destCity as $city) {
+            $destCity = is_string($destCity) ? array($destCity) : $destCity;
 
-                $this->data['custom'][] = array(
-                    'StartStandards' => $startStandards,
-                    'StartFees' => $startFees,
-                    'AddStandards' => $addStandards,
-                    'AddFees' => $addFees,
-                    'DestCountry' => $destCountry,
-                    'DestProvince' => $destProvince,
-                    'DestCity' => $city
-                );
+            if (is_array($destCity)) {
+                foreach ($destCity as $city) {
 
+                    $this->data['custom'][] = array(
+                        'StartStandards' => $startStandards,
+                        'StartFees' => $startFees,
+                        'AddStandards' => $addStandards,
+                        'AddFees' => $addFees,
+                        'DestCountry' => $destCountry,
+                        'DestProvince' => $destProvince,
+                        'DestCity' => $city
+                    );
+
+                }
             }
+
 
             return $this;
 
