@@ -249,7 +249,7 @@ class Regional
      * @return array
      * @throws Exception
      */
-    public function get($type = 'Country', $country = '中国', $province = null)
+    private function get($type = 'Country', $country = '中国', $province = null)
     {
         $data = array();
 
@@ -319,7 +319,7 @@ class Regional
     /**
      * 获得地级市
      *
-     * @param string $province 支持 , 数组 str 参数传入
+     * @param string|array $province 支持 , 数组 str 参数传入
      * @param string $country
      * @return array
      * @throws Exception
