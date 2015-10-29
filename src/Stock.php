@@ -28,16 +28,18 @@ class Stock extends Base implements StockInterface
      * 增加库存
      *
      * @param $productId
-     * @param array $skuInfo
+     * @param string|array $skuInfo
      * @param $quantity
      * @return bool
      * @throws ShopsException
      */
-    public function add($productId, array $skuInfo, $quantity)
+    public function add($productId,$skuInfo, $quantity)
     {
+        $skuInfo = is_array($skuInfo) ? $this->getSkuInfo($skuInfo) : $skuInfo;
+
         $this->response = $this->http->jsonPost(self::API_ADD,array(
             'product_id' => $productId,
-            'sku_info' => $this->getSkuInfo($skuInfo),
+            'sku_info' => $skuInfo,
             'quantity' => $quantity
         ));
 
@@ -49,12 +51,12 @@ class Stock extends Base implements StockInterface
      * 减少库存
      *
      * @param array $productId
-     * @param array $skuInfo
+     * @param string|array $skuInfo
      * @param $quantity
      * @return bool
      * @throws ShopsException
      */
-    public function reduce($productId, array $skuInfo, $quantity)
+    public function reduce($productId, $skuInfo, $quantity)
     {
         $this->response = $this->http->jsonPost(self::API_REDUCE,array(
             'product_id' => $productId,

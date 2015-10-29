@@ -24,7 +24,7 @@ interface Stock
      * @param $quantity
      * @return bool
      */
-    public function add($productId,array $skuInfo,$quantity);
+    public function add($productId, $skuInfo, $quantity);
 
     /**
      * 减少库存
@@ -34,5 +34,5 @@ interface Stock
      * @param $quantity
      * @return mixed
      */
-    public function reduce($productId, array $skuInfo, $quantity);
+    public function reduce($productId, $skuInfo, $quantity);
 }

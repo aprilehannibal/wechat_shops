@@ -10,7 +10,7 @@ namespace Shop;
 
 use Shop\Foundation\Base;
 use Shop\Foundation\Shelf as ShelfInterface;
-use Shop\Data\ShelfData;
+use Shop\Data\Shelf as ShelfData;
 use Shop\Foundation\ShopsException;
 
 /**
@@ -43,9 +43,7 @@ class Shelf extends Base implements ShelfInterface
             throw new ShopsException('$shelfData 是数组 ，或者是 ShelfData class');
         }
 
-        if ($shelfData instanceof ShelfData) {
-            $shelfData = $shelfData->getData();
-        }
+        $shelfData = $shelfData instanceof ShelfData ? $shelfData->getData() : $shelfData;
 
         $this->response = $this->http->jsonPost(self::API_ADD,array(
             'shelf_data' => $shelfData,
@@ -88,9 +86,9 @@ class Shelf extends Base implements ShelfInterface
             throw new ShopsException('$shelfData 是数组 ，或者是 ShelfData class');
         }
 
-        if ($shelfData instanceof ShelfData) {
-            $shelfData = $shelfData->getData();
-        }
+        $shelfData = $shelfData instanceof ShelfData
+            ? $shelfData->getData()
+            : $shelfData;
 
         $this->response = $this->http->jsonPost(self::API_UPDATE,array(
             'shelf_id' => $shelfId,

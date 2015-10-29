@@ -3,36 +3,36 @@
 ##初始化
 
 ```php
-    $group = new \Shop\Order($config);
+$group = new \Shop\Order($config);
 ```
 > $config 参见　[初始化](init.md)!!!
 
 ##Const
 
 ```PHP
-    const EMS = 'Fsearch_code';
-    const STO = '002shentong';
-    const ZTO = '066zhongtong';
-    const YTO = '056yuantong';
-    const TTK = '042tiantian';
-    const SF = '003shunfeng';
-    const YUN_DA = '059Yunda';
-    const ZJS = '064zhaijisong';
-    const HUI_TONG = '020huitong';
-    const YI_XUN = 'zj001yixun';
+const EMS = 'Fsearch_code';
+const STO = '002shentong';
+const ZTO = '066zhongtong';
+const YTO = '056yuantong';
+const TTK = '042tiantian';
+const SF = '003shunfeng';
+const YUN_DA = '059Yunda';
+const ZJS = '064zhaijisong';
+const HUI_TONG = '020huitong';
+const YI_XUN = 'zj001yixun';
 ```
 
 ##API
 
 ```php 
-    //根据订单ID获取订单详情
-    $order->getById($orderId)
-    //根据订单状态/创建时间获取订单详情
-    $order->getByAttribute($status = null, $beginTime = null, $endTime = null)
-    //设置发货信息
-    $order->setDelivery($orderId,$deliveryCompany = null,$deliveryTrackNo = null,$needDelivery = 1,$isOthers = null)
-    //关闭订单
-    $order->close($orderId)
+//根据订单ID获取订单详情
+$order->getById($orderId)
+//根据订单状态/创建时间获取订单详情
+$order->getByAttribute($status = null, $beginTime = null, $endTime = null)
+//设置发货信息
+$order->setDelivery($orderId,$deliveryCompany = null,$deliveryTrackNo = null,$needDelivery = 1,$isOthers = null)
+//关闭订单
+$order->close($orderId)
 ```
 
 ##设置发货信息

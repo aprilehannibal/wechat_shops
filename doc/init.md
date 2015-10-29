@@ -1,7 +1,5 @@
 #Init
 
-
-
 ```php
 //引入自动加载文件
 require "../vendor/autoload.php";

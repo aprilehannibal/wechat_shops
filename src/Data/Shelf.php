@@ -46,7 +46,7 @@ class Shelf
      *
      * @param array $groupId
      * @param int $eid
-     * @return ShelfData $this
+     * @return Shelf $this
      * @throws Exception
      */
     public function controlTwo(array $groupId, $eid)
@@ -77,7 +77,7 @@ class Shelf
      * @param int $groupId
      * @param string $img
      * @param int $eid
-     * @return ShelfData $this
+     * @return Shelf $this
      */
     public function controlThree($groupId, $img, $eid)
     {
