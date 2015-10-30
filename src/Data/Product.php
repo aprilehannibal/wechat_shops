@@ -21,12 +21,10 @@ use Overtrue\Wechat\Exception;
  * @property array $attrext
  * @property array $deliveryInfo
  * @method $this setDetail($name,$value)
- * @method $this setProperty($name,$value)
+ * @method $this setProperty($id,$vid)
  */
-class Product
+class Product extends Base
 {
-
-    private $data;
 
     public function setBaseAttr($name, $category, $main_img, array $img, $buyLimit = null)
     {
@@ -138,12 +136,14 @@ class Product
 
         $arr = array_search(substr($method,3),array('Detail','Property'));
 
-        dd($arr);
 
         if ($arr != false)
             throw new Exception('错误方法名');
 
-        $this->baseAttr[strtolower($str[$arr])][][$parameters[0]] = $parameters[1];
+
+        dd($str,strtolower(substr($method,3)),$parameters);
+
+        $this->data['baseAttr'][strtolower(substr($method,3))][][$parameters[0]] = $parameters[1];
 
         return $this;
 
