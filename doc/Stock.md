@@ -17,8 +17,8 @@ $stock->reduce($productId, array $skuInfo, $quantity);　//减少库存
 
 ```php
 $skuInfo = array(
-    array('10000983','10000995'),
-    array('10001007','10001010'),
+    '10000983'=>'10000995',
+    '10001007'=>'10001010',
     //...
 );
 ```

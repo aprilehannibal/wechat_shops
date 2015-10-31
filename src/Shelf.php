@@ -38,7 +38,7 @@ class Shelf extends Base implements ShelfInterface
      */
     public function add($shelfData,$shelfBanner,$shelfName)
     {
-
+        //todo 加入闭包的方式传入参数
         if (!($shelfData instanceof ShelfData) && !is_array($shelfData)) {
             throw new ShopsException('$shelfData 是数组 ，或者是 ShelfData class');
         }
@@ -82,6 +82,7 @@ class Shelf extends Base implements ShelfInterface
      */
     public function update($shelfData,$shelfId,$shelfBanner,$shelfName)
     {
+        //todo 加入闭包的方式传入参数
         if (!($shelfData instanceof ShelfData) && !is_array($shelfData)) {
             throw new ShopsException('$shelfData 是数组 ，或者是 ShelfData class');
         }

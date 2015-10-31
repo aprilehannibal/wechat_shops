@@ -73,12 +73,13 @@ class Stock extends Base implements StockInterface
      * @param array $skuInfo
      * @return string
      */
-    private function getSkuInfo(array $skuInfo)
+    public static function getSkuInfo(array $skuInfo)
     {
         $str = '';
 
         $i = 0;
         foreach ($skuInfo as $k => $v) {
+            $i++;
             if (count($skuInfo) > $i) {
                 $str.= $k.':'.$v.';';
             } else {

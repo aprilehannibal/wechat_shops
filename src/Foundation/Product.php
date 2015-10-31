@@ -35,10 +35,12 @@ interface Product
     /**
      * 修改商品
      *
+     * @param $productId
      * @param $data
+     * @param bool|false $shelf
      * @return mixed
      */
-    public function update($data);
+    public function update($productId,$data,$shelf = false);
 
     /**
      * 查询商品

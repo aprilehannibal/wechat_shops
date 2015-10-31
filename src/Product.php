@@ -12,6 +12,7 @@ namespace Shop;
 use Shop\Foundation\Base;
 use Shop\Foundation\Product as ProductInterface;
 use Shop\Foundation\ShopsException;
+use Shop\Data\Product as ProductData;
 
 class Product extends Base implements ProductInterface
 {
@@ -27,14 +28,28 @@ class Product extends Base implements ProductInterface
     const API_Property = 'https://api.weixin.qq.com/merchant/category/getproperty';
 
     /**
-     * 查询商品
+     * 新建商品
      *
-     * @param array $data
-     * @return mixed
+     * @param array|callable $data
+     * @return array|bool
+     * @throws ShopsException
+     * @throws \Overtrue\Wechat\Exception
      */
     public function create($data)
     {
-        // TODO: Implement create() method.
+        if (is_callable($data)) {
+            $product = call_user_func($data,new ProductData());
+
+            if (!($product instanceof ProductData)) throw new ShopsException('请返回 Shop\Data\Product Class');
+
+            $data = $product->getData();
+        }
+
+        if (!is_array($data)) throw new ShopsException('$product 必须是数组');
+
+        $this->response = $this->http->jsonPost(self::API_CREATE,$data);
+
+        return $this->getResponse();
     }
 
     /**
@@ -54,12 +69,29 @@ class Product extends Base implements ProductInterface
     /**
      * 修改商品
      *
+     * @param $productId
      * @param $data
-     * @return mixed
+     * @param bool|false $shelf
+     * @return array|bool
+     * @throws ShopsException
      */
-    public function update($data)
+    public function update($productId,$data,$shelf = false)
     {
-        // TODO: Implement update() method.
+        if (is_callable($data)) {
+            $product = call_user_func($data,new ProductData($shelf));
+
+            if (!($product instanceof ProductData)) throw new ShopsException('请返回 Shop\Data\Product Class');
+
+            $data = $product->getData();
+        }
+
+        if (!is_array($data)) throw new ShopsException('$product 必须是数组');
+
+        $data['product_id'] = $productId;
+
+        $this->response = $this->http->jsonPost(self::API_CREATE,$data);
+
+        return $this->getResponse();
     }
 
     /**
@@ -148,8 +180,6 @@ class Product extends Base implements ProductInterface
     public function getProperty($cateId)
     {
         $this->response = $this->http->jsonPost(self::API_Property, array('cate_id'=> $cateId));
-
-        //dd($this);exit;
 
         return $this->getResponse();
 

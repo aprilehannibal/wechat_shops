@@ -61,6 +61,7 @@ class Postage extends Base implements PostageInterface
      */
     public function add($name, $topFee, $assumer = 0, $valuation = 0)
     {
+        //todo 加入闭包的方式传入参数
         if ($topFee instanceof PostageData) $topFee = $topFee->topFee;
 
         $this->response = $this->http->jsonPost(self::API_ADD,array(
@@ -102,6 +103,7 @@ class Postage extends Base implements PostageInterface
      */
     public function update($templateId, $name, $topFee, $assumer = 0, $valuation = 0)
     {
+        //todo 加入闭包的方式传入参数
 
         $this->response = $this->http->jsonPost(self::API_UPDATE,array(
             'template_id'=>$templateId,
