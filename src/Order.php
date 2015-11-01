@@ -125,7 +125,7 @@ class Order extends Base implements OrderInterface
     /**
      * 关闭订单
      *
-     * @param array $orderId
+     * @param $orderId
      * @return bool
      * @throws ShopsException
      */

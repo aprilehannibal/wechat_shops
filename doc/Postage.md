@@ -18,11 +18,11 @@ const EMS = '10000029';      //EMS
 ##Api 
 
 ```php    
-$postage->add($name, $topFee, $assumer = 0, $valuation = 0);                 //添加模板
-$postage->delete($templateId);                                               //删除模板
-$postage->update($templateId, $name, $topFee, $assumer = 0, $valuation = 0); //修改模板
-$postage->getById($templateId);                                              //根据id获得模板配置
-$postage->lists();                                                           //获得全部模板
+$postage->add($name, array|callable  $topFee, $assumer = 0, $valuation = 0);                 //添加模板
+$postage->delete($templateId);                                                               //删除模板
+$postage->update($templateId, $name, array|callable $topFee, $assumer = 0, $valuation = 0);  //修改模板
+$postage->getById($templateId);                                                              //根据id获得模板配置
+$postage->lists();                                                                           //获得全部模板
 ```
 
 ## $topFee
@@ -30,10 +30,14 @@ $postage->lists();                                                           //�
 ###第一种
 
 ```php
-$topFee = new \Shop\Data\Postage();
+
+$postage->add($name,function(\Shop\Data\Postage $topFee){
+    return $topFee;
+}, $assumer = 0, $valuation = 0)
+
 
 $topFee->setNormal($startStandards, $startFees, $addStandards, $addFees)
-    ->setCustom($startStandards, $startFees, $addStandards, $addFees,$destProvince, $destCity,$destCountry = '中国')
+    ->setCustom($startStandards, $startFees, $addStandards, $addFees,string|array $destProvince,string|\Shop\Data\Postage|array $destCity,$destCountry = '中国')
     ->setTopFee($type = \Shop\Postage::KUAI_DI);
 
 //整个广东省    
@@ -69,7 +73,7 @@ $reginonal->getCountry();
 $reginonal->getProvince($country = '中国');
 
 //获得地级市列表
-$reginonal->getCity($province,$country = '中国');
+$reginonal->getCity(string|array $province,$country = '中国');
 
 // $province
 
@@ -128,7 +132,3 @@ $topFee = array(
     #...         
 );
 ```
-
-
-
-

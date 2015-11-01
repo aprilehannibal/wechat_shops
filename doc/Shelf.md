@@ -11,11 +11,11 @@ $shelf = new \Shop\Shelf($config);
 ##API
 
 ```php
-$shelf->add($shelfData,$shelfBanner,$shelfName)             //添加货架
-$shelf->delete($shelfId)                                    //删除货架
-$shelf->update($shelfData,$shelfId,$shelfBanner,$shelfName) //修改货架
-$shelf->lists()                                             //获取所有货架
-$shelf->getById($shelfId)                                   //根据货架ID获取货架信息
+$shelf->add(array|callable $shelfData,$shelfBanner,$shelfName)             //添加货架
+$shelf->delete($shelfId)                                                   //删除货架
+$shelf->update(array|callable $shelfData,$shelfId,$shelfBanner,$shelfName) //修改货架
+$shelf->lists()                                                            //获取所有货架
+$shelf->getById($shelfId)                                                  //根据货架ID获取货架信息
 ```
 
 ##$shelfData
