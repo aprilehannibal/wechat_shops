@@ -16,7 +16,6 @@ use Shop\Foundation\ShopsException;
 /**
  * Class Stock
  * @package Shop
- * @todo 后续优化 链式，魔术调用
  */
 class Stock extends Base implements StockInterface
 {

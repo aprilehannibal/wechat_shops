@@ -75,7 +75,7 @@ class Product extends Base implements ProductInterface
      * @return array|bool
      * @throws ShopsException
      */
-    public function update($productId,$data,$shelf = false)
+    public function update($data,$productId = null,$shelf = false)
     {
         if (is_callable($data)) {
             $product = call_user_func($data,new ProductData($shelf));
@@ -87,7 +87,15 @@ class Product extends Base implements ProductInterface
 
         if (!is_array($data)) throw new ShopsException('$product 必须是数组');
 
-        $data['product_id'] = $productId;
+        if ($shelf) {
+            if (isset($data['product_base']['name'])) throw new ShopsException('请下架之后修改name');
+            if (isset($data['product_base']['category'])) throw new ShopsException('请下架之后修改category');
+            if (isset($data['product_base']['Property'])) throw new ShopsException('请下架之后修改Property');
+        }
+
+        if (!isset($data['product_id']) && empty($productId)) throw new ShopsException('$productId 不允许为空');
+
+        $data['product_id'] = isset($data['product_id']) ? $data['product_id'] : $productId;
 
         $this->response = $this->http->jsonPost(self::API_CREATE,$data);
 
