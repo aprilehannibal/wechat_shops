@@ -17,7 +17,7 @@ use Shop\Foundation\ShopsException;
  * @property $normal
  * @property $topFee
  */
-class Postage  extends Base
+class TopFee extends Base
 {
     /**
      * 设置TopFee

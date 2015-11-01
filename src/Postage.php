@@ -9,34 +9,20 @@
 namespace Shop;
 
 
+use Shop\Data\TopFee;
 use Shop\Foundation\Base;
 use Shop\Foundation\Postage as PostageInterface;
 use Shop\Foundation\ShopsException;
-use Shop\Data\Postage as PostageData;
 
 /**
  * 邮费模板
  *
  * Class Postage
  * @package Shop
+ * @property $topFee
  */
 class Postage extends Base implements PostageInterface
 {
-
-    /**
-     * @var array
-     */
-    private $topFee;
-
-    /**
-     * @var array
-     */
-    private $normal;
-
-    /**
-     * @var array
-     */
-    private $custom;
 
     const PING_YOU = '10000027';
     const KUAI_DI = '10000028';
@@ -61,8 +47,15 @@ class Postage extends Base implements PostageInterface
      */
     public function add($name, $topFee, $assumer = 0, $valuation = 0)
     {
-        //todo 加入闭包的方式传入参数
-        if ($topFee instanceof PostageData) $topFee = $topFee->topFee;
+        if (is_callable($topFee)) {
+           $topFee =  call_user_func($topFee,new TopFee());
+
+           if (!($topFee instanceof TopFee)) throw new ShopsException('请返回 Shop\Data\TopFee class');
+
+           $topFee = $topFee->topFee;
+        }
+
+        if (!is_array($topFee)) throw new ShopsException('请返回数组');
 
         $this->response = $this->http->jsonPost(self::API_ADD,array(
             'delivery_template' =>array(
@@ -103,7 +96,15 @@ class Postage extends Base implements PostageInterface
      */
     public function update($templateId, $name, $topFee, $assumer = 0, $valuation = 0)
     {
-        //todo 加入闭包的方式传入参数
+        if (is_callable($topFee)) {
+            $topFee =  call_user_func($topFee,new TopFee());
+
+            if (!($topFee instanceof TopFee)) throw new ShopsException('请返回 Shop\Data\TopFee class');
+
+            $topFee = $topFee->topFee;
+        }
+
+        if (!is_array($topFee)) throw new ShopsException('请返回数组');
 
         $this->response = $this->http->jsonPost(self::API_UPDATE,array(
             'template_id'=>$templateId,

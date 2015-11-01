@@ -38,12 +38,14 @@ class Shelf extends Base implements ShelfInterface
      */
     public function add($shelfData,$shelfBanner,$shelfName)
     {
-        //todo 加入闭包的方式传入参数
-        if (!($shelfData instanceof ShelfData) && !is_array($shelfData)) {
-            throw new ShopsException('$shelfData 是数组 ，或者是 ShelfData class');
+
+        if (is_callable($shelfData)) {
+            $shelf = call_user_func($shelfData, new ShelfData());
+            if (!($shelf instanceof ShelfData)) throw new ShopsException('必须返回 Shop\Data\Shelf class');
+            $shelfData = $shelf->getData();
         }
 
-        $shelfData = $shelfData instanceof ShelfData ? $shelfData->getData() : $shelfData;
+        if (!is_array($shelfData)) throw new ShopsException('$shelfData　必须是数组');
 
         $this->response = $this->http->jsonPost(self::API_ADD,array(
             'shelf_data' => $shelfData,
@@ -82,14 +84,13 @@ class Shelf extends Base implements ShelfInterface
      */
     public function update($shelfData,$shelfId,$shelfBanner,$shelfName)
     {
-        //todo 加入闭包的方式传入参数
-        if (!($shelfData instanceof ShelfData) && !is_array($shelfData)) {
-            throw new ShopsException('$shelfData 是数组 ，或者是 ShelfData class');
+        if (is_callable($shelfData)) {
+            $shelf = call_user_func($shelfData, new ShelfData());
+            if (!($shelf instanceof ShelfData)) throw new ShopsException('必须返回 Shop\Data\Shelf class');
+            $shelfData = $shelf->getData();
         }
 
-        $shelfData = $shelfData instanceof ShelfData
-            ? $shelfData->getData()
-            : $shelfData;
+        if (!is_array($shelfData)) throw new ShopsException('$shelfData　必须是数组');
 
         $this->response = $this->http->jsonPost(self::API_UPDATE,array(
             'shelf_id' => $shelfId,
