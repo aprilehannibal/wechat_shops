@@ -1,9 +1,15 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: a9396
- * Date: 2015/10/19
- * Time: 20:24
+ * Order.php
+ *
+ * Part of Overtrue\Wechat.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author    a939638621 <a939638621@hotmail.com>
+ * @copyright 2015 a939638621 <a939638621@hotmail.com>
+ * @link      https://github.com/a939638621
  */
 
 namespace Shop;

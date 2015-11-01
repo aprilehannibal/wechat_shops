@@ -20,7 +20,16 @@ $shelf->getById($shelfId)                                   //根据货架ID获�
 
 ##$shelfData
 
+
 ###第一种　用辅助生成类
+
+
+```php
+$shelf->add(function(\Shop\Data\Shelf $shelfData){
+    return $shelfData;
+},$shelfBanner,$shelfName);
+```
+> 一定要返回句柄; 
 
 ```php
 $shelfData = new \Shop\Data\Shelf();
