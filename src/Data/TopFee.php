@@ -89,7 +89,7 @@ class TopFee extends Base
      */
     public function setCustom(
         $startStandards, $startFees, $addStandards, $addFees,
-        $destProvince, $destCity,$destCountry = '中国'
+        $destProvince, $destCity = null,$destCountry = '中国'
     )
     {
 
@@ -99,21 +99,22 @@ class TopFee extends Base
 
         //todo 未做反选，排除一个城市，选择其他
 
-        if ($destCity instanceof Regional) {
-
-            is_array($destProvince);
-            is_string($destProvince);
+        if (empty($destCity)) {
 
             //todo  $destProvince的判断
             //todo 　加入　全国省直辖市的　简称等
             //todo　加入　某些不平等条约的存在　例如　江浙沪　，你们懂得！！
 
+
+
             $destProvince = is_string($destProvince) ? array($destProvince) : $destProvince;
+
+            $regional = new Regional();
 
             foreach ($destProvince as $province) {
 
 
-                $citys = $destCity->getCity($province);
+                $citys = $regional->getCity($province);
 
                 if (empty($citys)) throw new ShopsException('请传入合法的省份名!!!');
 
@@ -160,6 +161,11 @@ class TopFee extends Base
             return $this;
 
         }
+    }
+
+    public function getData()
+    {
+        return $this->data['topFee'];
     }
 
 }

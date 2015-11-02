@@ -81,7 +81,7 @@ class Shelf extends Base implements ShelfInterface
     /**
      * 修改货架
      *
-     * @param array $shelfData
+     * @param array|callable $shelfData
      * @param $shelfId
      * @param $shelfBanner
      * @param $shelfName

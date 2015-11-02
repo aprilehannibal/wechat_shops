@@ -80,7 +80,7 @@ class Shelf
     /**
      * 控件3
      *
-     * @param int $groupId
+     * @param string $groupId
      * @param string $img
      * @param int $eid
      * @return Shelf $this
