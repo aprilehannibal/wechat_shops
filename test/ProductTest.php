@@ -8,14 +8,14 @@
  */
 
 use Shop\Product;
-use Shop\Foundation\Config;
+use Test\Config;
 
 class ProductTest extends PHPUnit_Framework_TestCase
 {
     public function testCreate()
     {
-        $config = new Config('APPID','APPSECRET');
-        $postage = new Product($config);
+        
+        $postage = new Product(Config::get());
         $response = $postage->create(function(\Shop\Data\Product $product){
             $product->setBaseAttr('main_img',array('img','img'),null,'name','categoty')
                 ->setDetail('text','text')
@@ -38,10 +38,10 @@ class ProductTest extends PHPUnit_Framework_TestCase
 
     public function testUpdate()
     {
-        $config = new Config('APPID','APPSECRET');
+        
 
         //以上架
-        $postage = new Product($config);
+        $postage = new Product(Config::get());
         $response = $postage->update('id',function(\Shop\Data\Product $product){
             $product->setBaseAttr('main_img',array('img','img'))
                 ->setDetail('text','text')
@@ -62,7 +62,7 @@ class ProductTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($response);
 
         //未上架的
-        $postage = new Product($config);
+        $postage = new Product(Config::get());
         $response = $postage->update('id',function(\Shop\Data\Product $product){
             $product->setBaseAttr('main_img',array('img','img'),null,'name','categoty')
                 ->setDetail('text','text')
@@ -86,56 +86,56 @@ class ProductTest extends PHPUnit_Framework_TestCase
 
     public function testDelete()
     {
-        $config = new Config('APPID','APPSECRET');
-        $postage = new Product($config);
+        
+        $postage = new Product(Config::get());
         $response = $postage->delete('商品id');
         $this->assertTrue($response);
     }
 
     public function testGet()
     {
-        $config = new Config('APPID','APPSECRET');
-        $postage = new Product($config);
+        
+        $postage = new Product(Config::get());
         $response = $postage->get('商品id');
         $this->assertTrue(is_array($response));
     }
 
     public function testGetByStatus()
     {
-        $config = new Config('APPID','APPSECRET');
-        $postage = new Product($config);
+        
+        $postage = new Product(Config::get());
         $response = $postage->getByStatus('状态');
         $this->assertTrue(is_array($response));
     }
 
     public function testUpdateStatus()
     {
-        $config = new Config('APPID','APPSECRET');
-        $postage = new Product($config);
+        
+        $postage = new Product(Config::get());
         $response = $postage->updateStatus('商品id','状态');
         $this->assertTrue($response);
     }
 
     public function testGetSub()
     {
-        $config = new Config('APPID','APPSECRET');
-        $postage = new Product($config);
+        
+        $postage = new Product(Config::get());
         $response = $postage->getSub('cateId');
         $this->assertTrue(is_array($response));
     }
 
     public function testGetSku()
     {
-        $config = new Config('APPID','APPSECRET');
-        $postage = new Product($config);
+        
+        $postage = new Product(Config::get());
         $response = $postage->getSku('cateId');
         $this->assertTrue(is_array($response));
     }
 
     public function testGetProperty()
     {
-        $config = new Config('APPID','APPSECRET');
-        $postage = new Product($config);
+        
+        $postage = new Product(Config::get());
         $response = $postage->getProperty('cateId');
         $this->assertTrue(is_array($response));
     }

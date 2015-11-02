@@ -8,14 +8,13 @@
  */
 
 use Shop\Group;
-use Shop\Foundation\Config;
+use Test\Config;
 
 class GroupTest extends PHPUnit_Framework_TestCase
 {
     public function testAdd()
     {
-        $config = new Config('appid','appsecret');
-        $group = new Group($config);
+        $group = new Group(Config::get());
         $response = $group->add('分组名',array('商品ID','商品id'));
         $this->assertTrue(is_string($response));
 
@@ -23,8 +22,7 @@ class GroupTest extends PHPUnit_Framework_TestCase
 
     public function testDelete()
     {
-        $config = new Config('appid','appsecret');
-        $group = new Group($config);
+        $group = new Group(Config::get());
         $response = $group->delete('分组id');
         $this->assertTrue($response);
 
@@ -32,16 +30,14 @@ class GroupTest extends PHPUnit_Framework_TestCase
 
     public function testUpdateAttribute()
     {
-        $config = new Config('appid','appsecret');
-        $group = new Group($config);
+        $group = new Group(Config::get());
         $response = $group->updateAttribute('分组id','分组名');
         $this->assertTrue($response);
     }
 
     public function testUpdateProduct()
     {
-        $config = new Config('appid','appsecret');
-        $group = new Group($config);
+        $group = new Group(Config::get());
         $response = $group->updateProduct('分组id',array('商品ID','商品id'));
         $this->assertTrue($response);
 
@@ -49,16 +45,14 @@ class GroupTest extends PHPUnit_Framework_TestCase
 
     public function testLists()
     {
-        $config = new Config('appid','appsecret');
-        $group = new Group($config);
+        $group = new Group(Config::get());
         $response = $group->lists();
         $this->assertTrue(is_array($response));
     }
 
     public function testGetById()
     {
-        $config = new Config('appid','appsecret');
-        $group = new Group($config);
+        $group = new Group(Config::get());
         $response = $group->getById('分组id');
         $this->assertTrue(is_array($response));
     }
