@@ -22,4 +22,6 @@ class ProductDataTest extends PHPUnit_Framework_TestCase
         $data = $product->setBaseAttr('主图',array('图一','图二'));
         $this->assertInstanceOf(Product::class,$data);
     }
+
+    //todo 忘记写完成了！！！！！　明天继续写
 }
