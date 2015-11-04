@@ -6,12 +6,14 @@
  * Date: 15-11-1
  * Time: 下午5:10
  */
+namespace Test;
+
 
 use Test\Config;
 use Shop\Data\Shelf as ShelfData;
 use Shop\Shelf;
 
-class ShelfTest extends PHPUnit_Framework_TestCase
+class ShelfTest extends \PHPUnit_Framework_TestCase
 {
     public function testAdd()
     {
@@ -21,23 +23,31 @@ class ShelfTest extends PHPUnit_Framework_TestCase
             return $shelf;
         },'banner','name');
         $this->assertTrue(is_string($response));
+
+        return $response;
     }
 
-    public function testDelete()
+    /**
+     * @depends testAdd
+     */
+    public function testDelete($shelfId)
     {
         
         $shelf = new Shelf(Config::get());
-        $response = $shelf->delete('货架id');
+        $response = $shelf->delete($shelfId);
         $this->assertTrue($response);
     }
 
-    public function testUpdate()
+    /**
+     * @depends testAdd
+     */
+    public function testUpdate($shelfId)
     {
-        
+        //todo 还有个大依赖呢
         $shelf = new Shelf(Config::get());
         $response = $shelf->update(function(ShelfData $shelf){
             return $shelf;
-        },'货架id','banner','name');
+        },$shelfId,'banner','name');
 
         $this->assertTrue($response);
     }
@@ -50,11 +60,14 @@ class ShelfTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(is_array($response));
     }
 
-    public function testGetById()
+    /**
+     * @depends testAdd
+     */
+    public function testGetById($shelfId)
     {
         
         $shelf = new Shelf(Config::get());
-        $response = $shelf->getById('货架id');
+        $response = $shelf->getById($shelfId);
         $this->assertTrue(is_array($response));
     }
 }

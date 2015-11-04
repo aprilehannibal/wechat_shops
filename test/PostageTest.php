@@ -6,11 +6,14 @@
  * Date: 15-11-1
  * Time: 下午5:10
  */
+namespace Test;
+
+
 use Test\Config;
 use Shop\Postage;
 use Shop\Data\TopFee;
 
-class PostageTest extends PHPUnit_Framework_TestCase
+class PostageTest extends \PHPUnit_Framework_TestCase
 {
 
 
@@ -26,21 +29,29 @@ class PostageTest extends PHPUnit_Framework_TestCase
         },'支付方式','计费方式');
 
         $this->assertTrue(is_string($response));
+
+        return $response;
     }
 
-    public function testDelete()
+    /**
+     * @depends testAdd
+     */
+    public function testDelete($templateId)
     {
         
         $postage = new Postage(Config::get());
-        $response = $postage->delete('模板id');
+        $response = $postage->delete($templateId);
         $this->assertTrue($response);
     }
 
-    public function testUpdate()
+    /**
+     * @depends testAdd
+     */
+    public function testUpdate($templateId)
     {
         
         $postage = new Postage(Config::get());
-        $response = $postage->update('模板id','模板名称',function(TopFee $topFee){
+        $response = $postage->update($templateId,'模板名称',function(TopFee $topFee){
             $topFee->setNormal('起始计费数量','起始计费金额','递增数量','递增费用')
                 ->setCustom('起始计费数量','起始计费金额','递增数量','递增费用',array('江苏省','浙江省','上海市'))
                 ->setTopFee('快递类型ID');
@@ -50,11 +61,14 @@ class PostageTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($response);
     }
 
-    public function testGetById()
+    /**
+     * @depends testAdd
+     */
+    public function testGetById($templateId)
     {
         
         $postage = new Postage(Config::get());
-        $response = $postage->getById('模板id');
+        $response = $postage->getById($templateId);
         $this->assertTrue(is_array($response));
     }
 

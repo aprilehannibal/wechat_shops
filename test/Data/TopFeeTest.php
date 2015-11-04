@@ -6,10 +6,12 @@
  * Date: 15-11-1
  * Time: 下午5:13
  */
+namespace Test\Data;
+
 
 use Shop\Data\TopFee;
 
-class TopFeeTest extends PHPUnit_Framework_TestCase
+class TopFeeTest extends \PHPUnit_Framework_TestCase
 {
     public function testSetTopFee()
     {

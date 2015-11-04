@@ -6,11 +6,12 @@
  * Date: 15-11-1
  * Time: 下午4:51
  */
+namespace Test;
 
 use Test\Config;
 use Shop\Order;
 
-class OrderTest extends PHPUnit_Framework_TestCase
+class OrderTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetById()
     {

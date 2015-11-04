@@ -132,7 +132,7 @@ class Product extends Base implements ProductInterface
      */
     public function getByStatus($status = 0)
     {
-        $this->response = $this->http->jsonPost(self::API_GET, array('status'=>$status));
+        $this->response = $this->http->jsonPost(self::API_GET_BY_STATUS, array('status'=>$status));
 
         return $this->getResponse();
     }
@@ -152,7 +152,7 @@ class Product extends Base implements ProductInterface
             'status'=>$status
         ));
 
-        $this->getResponse();
+        return $this->getResponse();
     }
 
     /**
@@ -166,7 +166,7 @@ class Product extends Base implements ProductInterface
     {
         $this->response = $this->http->jsonPost(self::API_SUB, array('cate_id'=> $cateId));
 
-        $this->getResponse();
+        return $this->getResponse();
     }
 
     /**

@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * Created by PhpStorm.
+ * User: pjxh
+ * Date: 15-11-2
+ * Time: 下午6:47
+ */
+namespace Test;
+
+class Config
+{
+    public static function get()
+    {
+        $appid = '';
+        $appsecret = '';
+
+        return new \Shop\Foundation\Config($appid,$appsecret);
+    }
+}

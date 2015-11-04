@@ -6,9 +6,12 @@
  * Date: 15-11-1
  * Time: 下午5:12
  */
+namespace Test\Data;
+
+
 use Shop\Data\Regional;
 
-class RegionalTest extends PHPUnit_Framework_TestCase
+class RegionalTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetCountry()
     {

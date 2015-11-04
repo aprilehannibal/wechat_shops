@@ -6,39 +6,56 @@
  * Date: 15-11-1
  * Time: 下午3:18
  */
+namespace Test;
 
 use Shop\Group;
 use Test\Config;
 
-class GroupTest extends PHPUnit_Framework_TestCase
+class GroupTest extends \PHPUnit_Framework_TestCase
 {
-    public function testAdd()
+    /**
+     * @depends ProductTest::testCreate
+     * @depends ProductTest::testCreate
+     */
+    public function testAdd($productId,$productId2)
     {
         $group = new Group(Config::get());
-        $response = $group->add('分组名',array('商品ID','商品id'));
+        $response = $group->add('分组名',array($productId,$productId2));
         $this->assertTrue(is_string($response));
 
+        return $response;
     }
 
-    public function testDelete()
+    /**
+     * @depends testAdd
+     */
+    public function testDelete($groupId)
     {
         $group = new Group(Config::get());
-        $response = $group->delete('分组id');
+        $response = $group->delete($groupId);
         $this->assertTrue($response);
 
     }
 
-    public function testUpdateAttribute()
+    /**
+     * @depends testAdd
+     */
+    public function testUpdateAttribute($groupId)
     {
         $group = new Group(Config::get());
-        $response = $group->updateAttribute('分组id','分组名');
+        $response = $group->updateAttribute($groupId,'分组名');
         $this->assertTrue($response);
     }
 
-    public function testUpdateProduct()
+    /**
+     * @depends testAdd
+     * @depends ProductTest::testCreate
+     * @depends ProductTest::testCreate
+     */
+    public function testUpdateProduct($groupId,$productId,$productId2)
     {
         $group = new Group(Config::get());
-        $response = $group->updateProduct('分组id',array('商品ID','商品id'));
+        $response = $group->updateProduct($groupId,array($productId,$productId2));
         $this->assertTrue($response);
 
     }
@@ -50,10 +67,13 @@ class GroupTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(is_array($response));
     }
 
-    public function testGetById()
+    /**
+     * @depends testAdd
+     */
+    public function testGetById($groupId)
     {
         $group = new Group(Config::get());
-        $response = $group->getById('分组id');
+        $response = $group->getById($groupId);
         $this->assertTrue(is_array($response));
     }
 
