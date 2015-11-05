@@ -16,19 +16,37 @@ use Shop\Data\TopFee;
 class PostageTest extends \PHPUnit_Framework_TestCase
 {
 
+    public function topfee($arry = false)
+    {
+        $topfee = new TopFee();
+        $topfee->setNormal('1','10','1','5')
+            ->setCustom('2','10','2','5','浙江省')
+            ->setTopFee();
 
+        if ($arry) $topfee->getData();
+
+        return $topfee;
+    }
+
+
+//    /**
+//     * @depends \Test\Data\TopFeeTest::testSetTopFee
+//     */
     public function testAdd()
     {
-        
-        $postage = new Postage(Config::get());
-        $response = $postage->add('模板名称',function(TopFee $topFee){
-            $topFee->setNormal('起始计费数量','起始计费金额','递增数量','递增费用')
-                ->setCustom('起始计费数量','起始计费金额','递增数量','递增费用',array('江苏省','浙江省','上海市'))
-                ->setTopFee('快递类型ID');
-            return $topFee;
-        },'支付方式','计费方式');
+        $topfee = $this->topfee();
 
-        $this->assertTrue(is_string($response));
+        $postage = new Postage(Config::get());
+        $response[0] = $postage->add('test1',function(TopFee $topFeedata) use ($topfee) {
+            return $topfee;
+        },0,0);
+
+        $this->assertTrue(is_numeric($response[0]));
+
+        $postage = new Postage(Config::get());
+        $response[1] = $postage->add('test2',$this->topfee(true),0,0);
+
+        $this->assertTrue(is_numeric($response[1]));
 
         return $response;
     }
@@ -40,23 +58,30 @@ class PostageTest extends \PHPUnit_Framework_TestCase
     {
         
         $postage = new Postage(Config::get());
-        $response = $postage->delete($templateId);
+        $response = $postage->delete($templateId[0]);
         $this->assertTrue($response);
     }
 
+//    /**
+//     * @depends testAdd
+//     * @depends \Test\Data\TopFeeTest::testSetTopFee
+//     */
     /**
      * @depends testAdd
      */
     public function testUpdate($templateId)
     {
-        
+        $topfee  = $this->topfee();
+
         $postage = new Postage(Config::get());
-        $response = $postage->update($templateId,'模板名称',function(TopFee $topFee){
-            $topFee->setNormal('起始计费数量','起始计费金额','递增数量','递增费用')
-                ->setCustom('起始计费数量','起始计费金额','递增数量','递增费用',array('江苏省','浙江省','上海市'))
-                ->setTopFee('快递类型ID');
-            return $topFee;
-        },'支付方式','计费方式');
+        $response = $postage->update($templateId[1],'test',function(TopFee $topFeeData) use ($topfee){
+            return $topfee;
+        },0,0);
+
+        $this->assertTrue($response);
+
+        $postage = new Postage(Config::get());
+        $response = $postage->update($templateId[1],'test',$this->topfee(true),0,0);
 
         $this->assertTrue($response);
     }
@@ -68,7 +93,7 @@ class PostageTest extends \PHPUnit_Framework_TestCase
     {
         
         $postage = new Postage(Config::get());
-        $response = $postage->getById($templateId);
+        $response = $postage->getById($templateId[1]);
         $this->assertTrue(is_array($response));
     }
 

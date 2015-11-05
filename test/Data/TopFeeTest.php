@@ -16,8 +16,8 @@ class TopFeeTest extends \PHPUnit_Framework_TestCase
     public function testSetTopFee()
     {
         $topfee = new TopFee();
-        $topfee->setNormal('开始数量','开始价格','递增数量','递增价格')
-            ->setCustom('开始数量','开始价格','递增数量','递增价格','浙江省')
+        $topfee->setNormal('1','10','1','5')
+            ->setCustom('2','10','2','5','浙江省')
             ->setTopFee();
         foreach ($topfee->topFee as $value) {
             $this->assertArrayHasKey('Type',$value);
@@ -25,12 +25,14 @@ class TopFeeTest extends \PHPUnit_Framework_TestCase
             $this->assertArrayHasKey('Custom',$value);
         }
 
+        return $topfee;
+
     }
 
     public function testSetCustom()
     {
         $topfee = new TopFee();
-        $topfee->setCustom('开始数量','开始价格','递增数量','递增价格','浙江省');
+        $topfee->setCustom('2','10','2','5','浙江省');
 
         foreach ($topfee->custom as $value) {
             $this->assertArrayHasKey('StartStandards',$value);
@@ -43,7 +45,7 @@ class TopFeeTest extends \PHPUnit_Framework_TestCase
         }
 
         $topfee = new TopFee();
-        $topfee->setCustom('开始数量','开始价格','递增数量','递增价格',array('江苏省','浙江省','上海市'));
+        $topfee->setCustom('2','10','2','5',array('江苏省','浙江省','上海市'));
 
         foreach ($topfee->custom as $value) {
             $this->assertArrayHasKey('StartStandards',$value);
@@ -56,7 +58,7 @@ class TopFeeTest extends \PHPUnit_Framework_TestCase
         }
 
         $topfee = new TopFee();
-        $topfee->setCustom('开始数量','开始价格','递增数量','递增价格','浙江省',array('杭州市','金华市'));
+        $topfee->setCustom('2','10','2','5','浙江省',array('杭州市','金华市'));
 
         foreach ($topfee->custom as $value) {
             $this->assertArrayHasKey('StartStandards',$value);
@@ -69,7 +71,7 @@ class TopFeeTest extends \PHPUnit_Framework_TestCase
         }
 
         $topfee = new TopFee();
-        $topfee->setCustom('开始数量','开始价格','递增数量','递增价格','上海市','上海市');
+        $topfee->setCustom('2','10','2','5','上海市','上海市');
 
         foreach ($topfee->custom as $value) {
             $this->assertArrayHasKey('StartStandards',$value);
@@ -85,7 +87,7 @@ class TopFeeTest extends \PHPUnit_Framework_TestCase
     public function testSetNormal()
     {
         $topfee = new TopFee();
-        $topfee->setNormal('开始数量','开始价格','递增数量','递增价格');
+        $topfee->setNormal('1','10','1','5');
 
         $this->assertArrayHasKey('StartStandards',$topfee->normal);
         $this->assertArrayHasKey('StartFees',$topfee->normal);

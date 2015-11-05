@@ -53,15 +53,19 @@ class Postage extends Base implements PostageInterface
      */
     public function add($name, $topFee, $assumer = 0, $valuation = 0)
     {
+        //todo 这个判断不知道为何会触发
+//        if (!is_array($topFee) && !is_callable($topFee)) {
+//            throw new ShopsException('....');
+//        }
+
         if (is_callable($topFee)) {
-           $topFee =  call_user_func($topFee,new TopFee());
+           $topFeeData =  call_user_func($topFee,new TopFee());
 
-           if (!($topFee instanceof TopFee)) throw new ShopsException('请返回 Shop\Data\TopFee class');
+           if (!($topFeeData instanceof TopFee)) throw new ShopsException('请返回 Shop\Data\TopFee class');
 
-           $topFee = $topFee->topFee;
+           $topFee = $topFeeData->getData();
         }
 
-        if (!is_array($topFee)) throw new ShopsException('请返回数组');
 
         $this->response = $this->http->jsonPost(self::API_ADD,array(
             'delivery_template' =>array(
@@ -110,7 +114,8 @@ class Postage extends Base implements PostageInterface
             $topFee = $topFee->topFee;
         }
 
-        if (!is_array($topFee)) throw new ShopsException('请返回数组');
+        //todo 这个判断不知道为何会触发
+        //if (!is_array($topFee)) throw new ShopsException('请返回数组');
 
         $this->response = $this->http->jsonPost(self::API_UPDATE,array(
             'template_id'=>$templateId,
@@ -134,7 +139,7 @@ class Postage extends Base implements PostageInterface
      */
     public function getById($templateId)
     {
-        $this->response = $this->http->jsonPost(self::API_DELETE,array('template_id' => $templateId));
+        $this->response = $this->http->jsonPost(self::API_GET_BY_ID,array('template_id' => $templateId));
 
         return $this->getResponse();
     }
