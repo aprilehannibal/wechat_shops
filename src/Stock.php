@@ -38,13 +38,11 @@ class Stock extends Base implements StockInterface
      * @return bool
      * @throws ShopsException
      */
-    public function add($productId,$skuInfo, $quantity)
+    public function add($productId, $quantity, $skuInfo = null)
     {
-        $skuInfo = is_array($skuInfo) ? $this->getSkuInfo($skuInfo) : $skuInfo;
-
         $this->response = $this->http->jsonPost(self::API_ADD,array(
             'product_id' => $productId,
-            'sku_info' => $skuInfo,
+            'sku_info' => is_null($skuInfo) ? '' : $this->getSkuInfo($skuInfo),
             'quantity' => $quantity
         ));
 
@@ -61,11 +59,11 @@ class Stock extends Base implements StockInterface
      * @return bool
      * @throws ShopsException
      */
-    public function reduce($productId, $skuInfo, $quantity)
+    public function reduce($productId, $quantity, $skuInfo = null)
     {
         $this->response = $this->http->jsonPost(self::API_REDUCE,array(
             'product_id' => $productId,
-            'sku_info' => $this->getSkuInfo($skuInfo),
+            'sku_info' => is_null($skuInfo) ? '' : $this->getSkuInfo($skuInfo),
             'quantity' => $quantity
         ));
 
@@ -78,8 +76,10 @@ class Stock extends Base implements StockInterface
      * @param array $skuInfo
      * @return string
      */
-    public static function getSkuInfo(array $skuInfo)
+    public static function getSkuInfo($skuInfo)
     {
+        if (is_string($skuInfo)) return $skuInfo;
+
         $str = '';
 
         $i = 0;
