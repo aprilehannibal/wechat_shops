@@ -228,16 +228,16 @@
         },
         {
             "name": "overtrue/wechat",
-            "version": "2.1.16",
+            "version": "2.1.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overtrue/wechat.git",
-                "reference": "23917c845e15df059508f8693204ddc78fe5eff4"
+                "reference": "f279c53a1b2745eacffd49817ca27394e37c1b94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overtrue/wechat/zipball/23917c845e15df059508f8693204ddc78fe5eff4",
-                "reference": "23917c845e15df059508f8693204ddc78fe5eff4",
+                "url": "https://api.github.com/repos/overtrue/wechat/zipball/f279c53a1b2745eacffd49817ca27394e37c1b94",
+                "reference": "f279c53a1b2745eacffd49817ca27394e37c1b94",
                 "shasum": ""
             },
             "require": {
@@ -267,7 +267,7 @@
                 "weixin",
                 "weixin-sdk"
             ],
-            "time": "2015-10-28 10:26:36"
+            "time": "2015-11-04 13:15:36"
         },
         {
             "name": "phpunit/php-code-coverage",

@@ -90,34 +90,30 @@ class Order extends Base implements OrderInterface
      * 设置发货信息
      *
      * @param $orderId
-     * @param null $deliveryCompany
-     * @param null $deliveryTrackNo
-     * @param int $needDelivery
-     * @param null $isOthers
+     * @param string $deliveryCompany
+     * @param string $deliveryTrackNo
+     * @param int $isOthers
      * @return bool
      * @throws ShopsException
      */
-    public function setDelivery($orderId,$deliveryCompany = null,$deliveryTrackNo = null,$needDelivery = 1,$isOthers = null)
+    public function setDelivery($orderId,$deliveryCompany = null,$deliveryTrackNo = null,$isOthers = 0)
     {
 
-        if ($needDelivery == 1) {
-            if (empty($deliveryCompany)) throw new ShopsException('$deliveryCompany 不需要为空');
-            if (empty($deliveryTrackNo)) throw new ShopsException('$deliveryTrackNo 不需要为空');
-        }
-
-        if ($needDelivery != 1 && $needDelivery != 0) {
-            throw new ShopsException('错误参数');
-        }
-
-        $isOthers = empty($isOthers) ? 0 : 1;
-
-        $this->response = $this->http->jsonPost(self::API_SET_DELIVERY, array(
+        $data = array(
             'order_id' => $orderId,
-            'delivery_company' => $deliveryCompany,
-            'delivery_track_no' => $deliveryTrackNo,
-            'need_delivery'=> $needDelivery,
-            'is_others'=> $isOthers
-        ));
+        );
+
+        $data['is_others'] = $isOthers;
+
+        if (empty($deliveryCompany) && empty($deliveryTrackNo)) {
+            $data['need_delivery'] = 0;
+        } else {
+            $data['need_delivery'] = 1;
+            $data['delivery_company'] = $deliveryCompany;
+            $data['delivery_track_no'] = $deliveryTrackNo;
+        }
+
+        $this->response = $this->http->jsonPost(self::API_SET_DELIVERY, $data);
 
         return $this->getResponse();
     }
@@ -131,7 +127,7 @@ class Order extends Base implements OrderInterface
      */
     public function close($orderId)
     {
-        $this->response = $this->http->jsonPost(self::API_GET_BY_ID, array('order_id'=>$orderId));
+        $this->response = $this->http->jsonPost(self::API_CLOSE, array('order_id'=>$orderId));
 
         return $this->getResponse();
     }

@@ -36,5 +36,7 @@ class RegionalTest extends \PHPUnit_Framework_TestCase
         $regional = new Regional();
         $data = $regional->getCity('北京市');
         $this->assertEquals(array(array('北京市')),$data);
+
+        return $data;
     }
 }

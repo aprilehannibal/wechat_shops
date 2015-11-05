@@ -44,13 +44,12 @@ interface Order
      * 设置发货信息
      *
      * @param $orderId
-     * @param null $deliveryCompany
-     * @param null $deliveryTrackNo
-     * @param int $needDelivery
-     * @param null $isOthers
+     * @param string $deliveryCompany
+     * @param string $deliveryTrackNo
+     * @param int $isOthers
      * @return bool
      */
-    public function setDelivery($orderId,$deliveryCompany = null,$deliveryTrackNo = null,$needDelivery = 1,$isOthers = null);
+    public function setDelivery($orderId,$deliveryCompany = null,$deliveryTrackNo = null,$isOthers = 0);
 
     /**
      * 关闭订单

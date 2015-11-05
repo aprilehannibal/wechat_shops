@@ -15,33 +15,57 @@ class OrderTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetById()
     {
+        $orderId = '13954548010111875781';
+
         $order = new Order(Config::get());
-        $response = $order->getById('订单号');
+        $response = $order->getById($orderId);
+
         $this->assertTrue(is_array($response));
+
+        return $orderId;
+
     }
+
 
     public function testGetByAttribute()
     {
         
         $order = new Order(Config::get());
-        $response = $order->getByAttribute('订单状态','订单创建时间起始时间','订单创建时间终止时间');
+        $response = $order->getByAttribute(2,time()-1000,time());
+
         $this->assertTrue(is_array($response));
+
+        $order = new Order(Config::get());
+        $response = $order->getByAttribute();
+
+        $this->assertTrue(is_array($response));
+
+        return $response;
 
     }
 
-    public function testSetDelivery()
+    /**
+     * @depends testGetById
+     */
+    public function testSetDelivery($orderId)
     {
-        
+
+        /**
+         *  setDelivery($orderId,$deliveryCompany = null,$deliveryTrackNo = null,$isOthers = 0)
+         */
         $order = new Order(Config::get());
-        $response = $order->setDelivery('订单号','物流公司id','运单id','商品是否需要物流','是否是其他物流公司');
+        $response = $order->setDelivery($orderId);
         $this->assertTrue($response);
     }
 
-    public function test()
+    /**
+     * @depends testGetById
+     */
+    public function testClose($orderId)
     {
         
         $order = new Order(Config::get());
-        $response = $order->close('订单号');
+        $response = $order->close($orderId);
         $this->assertTrue($response);
     }
 }
