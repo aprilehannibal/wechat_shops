@@ -54,7 +54,7 @@ class StockTest extends \PHPUnit_Framework_TestCase
     {
         
         $stock = new Stock(Config::get());
-        $data = $stock->getSkuInfo(array('a'=>'a1','b'=>'b1'));
+        $data = $stock->getSkuInfo(array(array('a','a1'),array('b','b1')));
         $this->assertEquals('a:a1;b:b1',$data);
     }
 }
