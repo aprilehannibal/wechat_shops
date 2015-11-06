@@ -13,35 +13,40 @@ use Shop\Stock;
 
 class StockTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @depends ProductTest::testCreate
-     * @depends testGetSkuInfo
-     */
-    public function testAdd($productId,$skuInfo)
+//    /**
+//     * @depends ProductTest::testCreate
+//     * @depends testGetSkuInfo
+//     */
+    public function testAdd()
     {
+        $productId = 'pe4OowbHVULEWICFN1t6iy2BPWXA';
+        $skuInfo = '';
         
         $stock = new Stock(Config::get());
-        $response = $stock->add($productId,$skuInfo,100);
+        $response = $stock->add($productId,100);
         $this->assertTrue($response);
 
         $stock = new Stock(Config::get());
-        $response = $stock->add($productId,array(''=>''),100);
+        $response = $stock->add($productId,'100');
         $this->assertTrue($response);
     }
 
-    /**
-     * @depends ProductTest::testCreate
-     * @depends testGetSkuInfo
-     */
-    public function testReduce($productId,$skuInfo)
+//    /**
+//     * @depends ProductTest::testCreate
+//     * @depends testGetSkuInfo
+//     */
+    public function testReduce()
     {
+
+        $productId = 'pe4OowbHVULEWICFN1t6iy2BPWXA';
+        $skuInfo = '';
         
         $stock = new Stock(Config::get());
-        $response = $stock->reduce($productId,$skuInfo,100);
+        $response = $stock->reduce($productId,100);
         $this->assertTrue($response);
 
         $stock = new Stock(Config::get());
-        $response = $stock->reduce($productId,array(''=>''),100);
+        $response = $stock->reduce($productId,100);
         $this->assertTrue($response);
     }
 

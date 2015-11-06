@@ -33,8 +33,8 @@ class Stock extends Base implements StockInterface
      * 增加库存
      *
      * @param $productId
-     * @param string|array $skuInfo
      * @param $quantity
+     * @param string|array $skuInfo
      * @return bool
      * @throws ShopsException
      */
@@ -83,12 +83,12 @@ class Stock extends Base implements StockInterface
         $str = '';
 
         $i = 0;
-        foreach ($skuInfo as $k => $v) {
+        foreach ($skuInfo as $v) {
             $i++;
             if (count($skuInfo) > $i) {
-                $str.= $k.':'.$v.';';
+                $str.= $v[0].':'.$v[1].';';
             } else {
-                $str.= $k.':'.$v;
+                $str.= $v[0].':'.$v[1];
             }
 
         }
