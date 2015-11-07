@@ -51,10 +51,13 @@ class Shelf extends Base implements ShelfInterface
             $shelfData = $shelf->getData();
         }
 
-        if (!is_array($shelfData)) throw new ShopsException('$shelfData　必须是数组');
+        //todo 判断出ｂｕｇ
+        //if (!is_array($shelfData)) throw new ShopsException('$shelfData　必须是数组');
 
         $this->response = $this->http->jsonPost(self::API_ADD,array(
-            'shelf_data' => $shelfData,
+            'shelf_data' => array(
+                'module_infos'=>$shelfData,
+            ),
             'shelf_banner'=>$shelfBanner,
             'shelf_name'=>$shelfName
         ));
@@ -96,11 +99,14 @@ class Shelf extends Base implements ShelfInterface
             $shelfData = $shelf->getData();
         }
 
-        if (!is_array($shelfData)) throw new ShopsException('$shelfData　必须是数组');
+        //todo 判断出ｂｕｇ
+        //if (!is_array($shelfData)) throw new ShopsException('$shelfData　必须是数组');
 
         $this->response = $this->http->jsonPost(self::API_UPDATE,array(
             'shelf_id' => $shelfId,
-            'shelf_data' => $shelfData,
+            'shelf_data' => array(
+                'module_infos'=>$shelfData,
+            ),
             'shelf_banner'=>$shelfBanner,
             'shelf_name'=>$shelfName
         ));

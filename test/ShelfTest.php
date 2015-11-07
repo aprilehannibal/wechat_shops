@@ -9,20 +9,39 @@
 namespace Test;
 
 
+use Overtrue\Wechat\Media;
 use Test\Config;
 use Shop\Data\Shelf as ShelfData;
 use Shop\Shelf;
 
 class ShelfTest extends \PHPUnit_Framework_TestCase
 {
+    public static function shelf($arry = false)
+    {
+        $groupId = '207133170';
+
+        $shelf = new ShelfData();
+        $shelf->controlTwo(array($groupId,$groupId,$groupId),2);
+
+        if ($arry) return $shelf->getData();
+
+        return $shelf;
+    }
+
     public function testAdd()
     {
-        
+
+        $media = new Media(Config::APPID,Config::APPSECRET);
+
+        $banner = $media->forever()->lists('image');
+
+        $shelfData = $this->shelf();
+
         $shelf = new Shelf(Config::get());
-        $response = $shelf->add(function(ShelfData $shelf){
-            return $shelf;
-        },'banner','name');
-        $this->assertTrue(is_string($response));
+        $response = $shelf->add(function(ShelfData $shelf) use ($shelfData) {
+            return $shelfData;
+        },file_get_contents('/home/pjxh/图片/pic_logo_1082168b92.png'),'test');
+        $this->assertTrue($response);
 
         return $response;
     }
@@ -57,7 +76,7 @@ class ShelfTest extends \PHPUnit_Framework_TestCase
         
         $shelf = new Shelf(Config::get());
         $response = $shelf->lists();
-        $this->assertTrue(is_array($response));
+        $this->assertTrue(($response));
     }
 
     /**

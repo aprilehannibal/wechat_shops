@@ -29,10 +29,9 @@ class Shelf
      *
      * @param int $count
      * @param int $groupId
-     * @param int $eid
      * @return $this
      */
-    public function controlOne($count, $groupId, $eid)
+    public function controlOne($count, $groupId)
     {
         $this->data[] = array(
             'group_info' => array(
@@ -41,7 +40,7 @@ class Shelf
                 ),
                 'group_id' => $groupId
             ),
-            'eid' => $eid
+            'eid' => count($this->data)+1
         );
 
         return $this;
@@ -51,11 +50,10 @@ class Shelf
      * 控件2
      *
      * @param array $groupId
-     * @param int $eid
      * @return Shelf $this
      * @throws Exception
      */
-    public function controlTwo(array $groupId, $eid)
+    public function controlTwo(array $groupId)
     {
         if (count($groupId) > 4) {
             throw new Exception('错误个数');
@@ -71,7 +69,7 @@ class Shelf
             'group_infos' => array(
                 'groups' => $groupsData
             ),
-            'eid' => $eid
+            'eid' => count($this->data)+1
         );
 
         return $this;
@@ -82,17 +80,16 @@ class Shelf
      *
      * @param string $groupId
      * @param string $img
-     * @param int $eid
      * @return Shelf $this
      */
-    public function controlThree($groupId, $img, $eid)
+    public function controlThree($groupId, $img)
     {
         $this->data[] = array(
             'group_info' => array(
                 'group_id' => $groupId,
                 'img' => $img
             ),
-            'eid' => $eid
+            'eid' => count($this->data)+1
         );
 
         return $this;
@@ -102,11 +99,10 @@ class Shelf
      * 控件4
      *
      * @param array $groups
-     * @param int $eid
      * @return $this
      * @throws Exception
      */
-    public function controlFour(array $groups,$eid)
+    public function controlFour(array $groups)
     {
         if (count($groups) > 3) throw new Exception('个数错误');
 
@@ -148,7 +144,7 @@ class Shelf
             'group_infos' => array(
                 'groups'=>$groupsData
             ),
-            'eid' => $eid
+            'eid' => count($this->data)+1
         );
 
         return $this;
@@ -159,10 +155,9 @@ class Shelf
      *
      * @param array $groups
      * @param string $imgBackground
-     * @param int $eid
      * @return $this
      */
-    public function controlFive(array $groups,$imgBackground,$eid)
+    public function controlFive(array $groups, $imgBackground)
     {
 
         $groupsData = array();
@@ -176,7 +171,7 @@ class Shelf
                 'groups' => $groupsData,
                 'img_background'=>$imgBackground
             ),
-            'eid'=>$eid
+            'eid'=>count($this->data)+1
         );
 
         return $this;
